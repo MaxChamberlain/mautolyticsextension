@@ -94,7 +94,7 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                     let label = subChild.children[0]?.innerText
                                     let value = subChild.children[1]?.innerText
                                     if(label === 'VIN:'){
-                                        fetch('https://www2.vauto.com/Va/Inventory/InventoryData.ashx?QuickSearch=' + value + "&gridSrcName=inventoryDetail&IsExactWordMatch=false&HistoricalDaySpan=7", {
+                                        fetch('https://www2.vauto.com/Va/Inventory/InventoryData.ashx?QuickSearch=' + value + "&gridSrcName=inventoryDetail&IsExactWordMatch=false&HistoricalDaySpan=60", {
                                             "headers": {
                                                 "accept": "application/json, text/javascript, */*; q=0.01",
                                                 "accept-language": "en-US,en;q=0.9",
