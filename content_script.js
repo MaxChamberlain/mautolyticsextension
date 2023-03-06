@@ -185,7 +185,7 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                                 v_acv: e['AppraisedValue'],
                                                 v_final_mmr: e['Manheim_Wholesale'],
                                                 v_start_price: e['ListPrice'],
-                                                v_sell_price: e['SourceListPrice'],
+                                                v_sell_price: e['InitialPendingPrice'],
                                                 v_market_percent: e['EffectivePercentOfMarket'] ? Math.round(e['EffectivePercentOfMarket'] * 100) : undefined,
                                                 v_initial_carg_h,
                                                 v_initial_carg_level,
