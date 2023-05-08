@@ -156,7 +156,7 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                                         v_initial_carg_h = splitNotes[index + 1]
                                                         v_initial_carg_level = 'fairPrice'
                                                     }
-                                                    if(note.toUpperCase() === 'IMV'){
+                                                    if(note.toUpperCase() === 'IMV' && !v_initial_carg_h && !v_initial_carg_level){
                                                         v_initial_carg_h = splitNotes[index + 1]
                                                         v_initial_carg_level = 'fairPrice'
                                                     }
