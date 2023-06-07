@@ -94,7 +94,7 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                     let label = subChild.children[0]?.innerText
                                     let value = subChild.children[1]?.innerText
                                     if(label === 'VIN:'){
-                                        fetch('https://www2.vauto.com/Va/Inventory/InventoryData.ashx?QuickSearch=' + value + "&gridSrcName=inventoryDetail&IsExactWordMatch=false&HistoricalDaySpan=60", {
+                                        fetch('https://www2.vauto.com/Va/Inventory/InventoryData.ashx?QuickSearch=' + value + "&gridSrcName=inventoryDetail&IsExactWordMatch=false", {
                                             "headers": {
                                                 "accept": "application/json, text/javascript, */*; q=0.01",
                                                 "accept-language": "en-US,en;q=0.9",
@@ -130,6 +130,7 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                             return returnObj
                                         }).then(e => {
                                             document.getElementById('new-borderEl-select-framework-title').innerText = 'Max Autolytics : ' + e['VehicleTitle']
+                                            console.log(e)
                                             let notes = e['AppraisalCommmentRec'] ? JSON.parse(e['AppraisalCommmentRec'])[0]?.comment : undefined
                                             let v_initial_carg_h = ''
                                             let v_initial_carg_level = ''
@@ -171,6 +172,7 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
             
                                                 })
                                             }
+                                            console.log('e', e)
                                             let details = {
                                                 v_stock_no: e['StockNumber'],
                                                 v_miles: e['Odometer'],
@@ -181,17 +183,16 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                                 v_is_certified: e['IsCertified'] === 1 ? true : false,
                                                 v_notes: notes,
                                                 v_days: e['DaysInInventory'],
-                                                v_final_acv: e['TotalCost'],
                                                 v_acv: e['AppraisedValue'],
-                                                v_final_mmr: e['Manheim_Wholesale'],
                                                 v_start_price: e['InitialPendingPrice'],
                                                 v_sell_price: e['ListPrice'],
-                                                v_market_percent: e['EffectivePercentOfMarket'] ? Math.round(e['EffectivePercentOfMarket'] * 100) : undefined,
+                                                v_initial_market_percent: e['EffectivePercentOfMarket'] ? Math.round(e['EffectivePercentOfMarket'] * 100) : undefined,
                                                 v_initial_carg_h,
                                                 v_initial_carg_level,
                                                 v_initial_mmr,
                                                 v_msrp,
-                                                type: 'sale'
+                                                type: 'inventory',
+                                                acquired_at: new Date(e['InventoryDate']).toLocaleDateString('en-US'),
                                             }   
                                             console.log(details)
                                             chrome.runtime.sendMessage({ type: 'gathered-metrics-data', data: details})
@@ -204,7 +205,7 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                             element.remove();
                                         });
                                     }
-                                    document.getElementById('new-borderEl-select-framework-title').innerText = 'Max Autolytics : There was an error. Do you have the "Left Inventory" filter selected?'
+                                    document.getElementById('new-borderEl-select-framework-title').innerText = 'Max Autolytics : There was an error. Do you have the "Left Inventory" filter selected? (You shouldn\'t)'
                                 }
                             }
                         })

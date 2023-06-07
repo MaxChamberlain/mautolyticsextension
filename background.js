@@ -13,6 +13,12 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
                 files: ['content_script.js']
             });
         }
+        if(request.type === 'grab-inventory'){
+            chrome.scripting.executeScript({
+                target: {tabId: currentTab},
+                files: ['content_intentory_script.js']
+            });
+        }
         if(request.type === 'gathered-metrics-data') {
             chrome.storage.local.set({wasWritten: true}, function() {
             });
