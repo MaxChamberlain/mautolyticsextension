@@ -12,15 +12,15 @@ document.addEventListener('DOMContentLoaded', function () {
         let url = tabs[0].url;
         url = url.split('?')[0]
         let expectedUrls = [
-            "https://www2.vauto.com/Va/Inventory/", 
-            "http://localhost:5173/documents", 
-            "http://localhost:5173/inventory", 
-            "http://127.0.0.1:5173/documents", 
-            "http://127.0.0.1:5173/inventory", 
-            "https://maxautolytics.com/documents", 
-            "https://maxautolytics.com/inventory", 
-            "https://dealer-trk.netlify.app/documents",
-            "https://dealer-trk.netlify.app/inventory"
+            "www2.vauto.com/Va/Inventory/", 
+            "localhost:5173/documents", 
+            "localhost:5173/inventory", 
+            "127.0.0.1:5173/documents", 
+            "127.0.0.1:5173/inventory", 
+            "maxautolytics.com/documents", 
+            "maxautolytics.com/inventory", 
+            "dealer-trk.netlify.app/documents",
+            "dealer-trk.netlify.app/inventory"
         ]
         const matchingUrl = expectedUrls.some(e => {
             console.log(e, url, url.includes(e))
