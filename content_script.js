@@ -136,7 +136,9 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                             let v_initial_mmr = ''
                                             let v_msrp = ''
                                             let splitNotes = notes?.split(' ')?.map(e => e)
+                                            let v_initialCargurusSuggestedRange = [0,0]
                                             if(splitNotes){
+                                                let foundCarg = false
                                                 splitNotes.forEach((note, index) => {
                                                     if(note.toUpperCase() === 'MSRP'){
                                                         v_msrp = splitNotes[index + 1]
@@ -145,31 +147,74 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                                         v_initial_mmr = splitNotes[index + 1]
                                                     }
                                                     if(note.toUpperCase() === 'GR'){
-                                                        v_initial_carg_h = splitNotes[index + 1]
-                                                        v_initial_carg_level = 'greatPrice'
+                                                        if(foundCarg){
+                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]
+                                                        } else {
+                                                            v_initial_carg_h = splitNotes[index + 1]
+                                                            v_initial_carg_level = 'greatPrice'
+                                                            v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]
+                                                            foundCarg = true
+                                                        }
                                                     }
                                                     if(note.toUpperCase() === 'G'){
-                                                        v_initial_carg_h = splitNotes[index + 1]
-                                                        v_initial_carg_level = 'goodPrice'
+                                                        if(foundCarg){
+                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]
+                                                        } else {
+                                                            v_initial_carg_h = splitNotes[index + 1]
+                                                            v_initial_carg_level = 'goodPrice'
+                                                            v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]
+                                                            foundCarg = true
+                                                        }
                                                     }
                                                     if(note.toUpperCase() === 'F'){
-                                                        v_initial_carg_h = splitNotes[index + 1]
-                                                        v_initial_carg_level = 'fairPrice'
+                                                        if(foundCarg){
+                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]
+                                                        } else {
+                                                            v_initial_carg_h = splitNotes[index + 1]
+                                                            v_initial_carg_level = 'fairPrice'
+                                                            v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]
+                                                            foundCarg = true
+                                                        }
                                                     }
-                                                    if(note.toUpperCase() === 'IMV' && !v_initial_carg_h && !v_initial_carg_level){
-                                                        v_initial_carg_h = splitNotes[index + 1]
-                                                        v_initial_carg_level = 'fairPrice'
+                                                    if(note.toUpperCase() === 'IMV'){
+                                                        if(foundCarg){
+                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]
+                                                        } else {
+                                                            v_initial_carg_h = splitNotes[index + 1]
+                                                            v_initial_carg_level = 'fairPrice'
+                                                            v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]
+                                                            foundCarg = true
+                                                        }
                                                     }
                                                     if(note.toUpperCase() === 'H'){
-                                                        v_initial_carg_h = splitNotes[index + 1]
-                                                        v_initial_carg_level = 'highPrice'
+                                                        if(foundCarg){
+                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]
+                                                        } else {
+                                                            v_initial_carg_h = splitNotes[index + 1]
+                                                            v_initial_carg_level = 'highPrice'
+                                                            v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]
+                                                            foundCarg = true
+                                                        }
                                                     }
                                                     if(note.toUpperCase() === 'OP'){
-                                                        v_initial_carg_h = splitNotes[index + 1]
-                                                        v_initial_carg_level = 'overPrice'
+                                                        if(foundCarg){
+                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]
+                                                        } else {
+                                                            v_initial_carg_h = splitNotes[index + 1]
+                                                            v_initial_carg_level = 'overPrice'
+                                                            v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]
+                                                            foundCarg = true
+                                                        }
                                                     }
-            
+                                                    if(note.toUpperCase() === 'IMV'){
+                                                        v_imv = splitNotes[index + 1]
+                                                    }
                                                 })
+                                            }
+                                            if(parseInt(v_initialCargurusSuggestedRange[0]) > parseInt(v_initialCargurusSuggestedRange[1])){
+                                                let temp = v_initialCargurusSuggestedRange[0]
+                                                v_initialCargurusSuggestedRange[0] = v_initialCargurusSuggestedRange[1]
+                                                v_initialCargurusSuggestedRange[1] = temp
                                             }
                                             let details = {
                                                 v_stock_no: e['StockNumber'],
@@ -191,7 +236,9 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                                 v_initial_carg_level,
                                                 v_initial_mmr,
                                                 v_msrp,
-                                                type: 'sale'
+                                                v_imv,
+                                                type: 'sale',
+                                                v_initialCargurusSuggestedRange,
                                             }   
                                             console.log(details)
                                             chrome.runtime.sendMessage({ type: 'gathered-metrics-data', data: details})

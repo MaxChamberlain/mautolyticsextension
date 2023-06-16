@@ -1,6 +1,10 @@
 var bgp = chrome.extension.getBackgroundPage()
 
 document.addEventListener('DOMContentLoaded', function () {
+    var getAllbtn = document.getElementById("get_all");
+    getAllbtn.addEventListener('click', startGetAll);
+    var setAllbtn = document.getElementById("put_all");
+    setAllbtn.addEventListener('click', startPutAll);
     var btadd = document.getElementById("get_btn");
     btadd.addEventListener('click', startScraper);
     var btinv = document.getElementById("inv_btn");
@@ -15,15 +19,18 @@ document.addEventListener('DOMContentLoaded', function () {
             "www2.vauto.com/Va/Inventory/", 
             "localhost:5173/documents", 
             "localhost:5173/inventory", 
+            "localhost:5173/list", 
             "127.0.0.1:5173/documents", 
             "127.0.0.1:5173/inventory", 
+            "127.0.0.1:5173/list", 
             "maxautolytics.com/documents", 
             "maxautolytics.com/inventory", 
+            "maxautolytics.com/list", 
             "dealer-trk.netlify.app/documents",
-            "dealer-trk.netlify.app/inventory"
+            "dealer-trk.netlify.app/inventory",
+            "dealer-trk.netlify.app/list",
         ]
         const matchingUrl = expectedUrls.some(e => {
-            console.log(e, url, url.includes(e))
             return url.includes(e)
         })
         if (!matchingUrl) {
@@ -49,6 +56,30 @@ chrome.storage.local.get('metrics', function (result) {
         document.getElementById('set_btn').style.opacity = '60%'
     }
 })
+
+chrome.storage.local.get('all_inventory', function (result) {
+    console.log(result)
+    if (result && result.all_inventory) {
+        document.getElementById('status').innerText = 'Holding ' + result.all_inventory.length + ' vehicles'
+        document.getElementById("get_all").disabled = false;
+    } else {
+        document.getElementById('status').innerText = 'No data'
+        document.getElementById("set_btn").disabled = true;
+        document.getElementById('set_btn').style.opacity = '60%'
+    }
+})
+
+function startGetAll(e) {
+    chrome.runtime.sendMessage({ type: 'get-all' })
+    e.target.innerText = 'Getting Data...'
+    e.target.removeEventListener('click', startGetAll)
+}
+
+function startPutAll(e) {
+    chrome.runtime.sendMessage({ type: 'put-all' })
+    e.target.innerText = 'Putting Data...'
+    e.target.removeEventListener('click', startPutAll)
+}
 
 function startScraper(e) {
     chrome.runtime.sendMessage({ type: 'grab' })
