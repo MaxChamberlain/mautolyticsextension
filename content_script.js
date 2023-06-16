@@ -137,6 +137,7 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                             let v_msrp = ''
                                             let splitNotes = notes?.split(' ')?.map(e => e)
                                             let v_initialCargurusSuggestedRange = [0,0]
+                                            let v_imv = ''
                                             if(splitNotes){
                                                 let foundCarg = false
                                                 splitNotes.forEach((note, index) => {

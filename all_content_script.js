@@ -41,6 +41,8 @@ try{
             let obj = e.replace(/\\n/g, '')
             obj = obj.replace(/new Date\((\d+)\)/g, '$1')
             obj = obj.replace(/\\\\\",\\\"/g, "\",\"")
+            obj = obj.replace(/\\\",\"/g, "\",\"")
+            console.log(obj)
             obj = JSON.parse(obj)
             console.log(obj)
             let returnObjs = []
