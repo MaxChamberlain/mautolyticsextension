@@ -112,6 +112,8 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                         }).then(e => e.text()).then(e => {
                                             let obj = e.replace(/\\n/g, '')
                                             obj = obj.replace(/new Date\((\d+)\)/g, '$1')
+                                            obj = obj.replace(/\\\\\",\\\"/g, "\",\"")
+                                            obj = obj.replace(/\\\",\"/g, "\",\"")
                                             obj = JSON.parse(obj)
                                             if(obj.rows.length === 0){
                                                 if(document.querySelectorAll('#new-borderEl-select-framework') && document.querySelectorAll('#new-borderEl-select-framework').length > 0){
@@ -130,7 +132,18 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                             return returnObj
                                         }).then(e => {
                                             document.getElementById('new-borderEl-select-framework-title').innerText = 'Max Autolytics : ' + e['VehicleTitle']
-                                            let notes = e['AppraisalCommmentRec'] ? JSON.parse(e['AppraisalCommmentRec'])[0]?.comment : undefined
+                                            let notes = ''
+                                            if(e['AppraisalCommmentRec'] != undefined){
+                                                try{
+                                                    notes = e['AppraisalCommmentRec'] ? JSON.parse(e['AppraisalCommmentRec'])[0]?.comment : undefined
+                                                } catch(e){
+                                                    try{
+                                                        notes = e['AppraisalCommmentRec'].replace('[{"comment":"', '').replace('"}]', '')
+                                                    } catch(e){
+                                                        console.log(e)
+                                                    }
+                                                }
+                                            }
                                             let v_initial_carg_h = ''
                                             let v_initial_carg_level = ''
                                             let v_initial_mmr = ''
