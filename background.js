@@ -33,7 +33,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
                 files: ['undo_content_script.js']
             });
             chrome.storage.local.set({metrics: request.data}, function() {
-                console.log('Metrics data saved');
+              console.log('Metrics data saved');
             });
         }
         if(request.type === 'gathered-all-data') {
