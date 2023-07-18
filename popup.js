@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
             "dealer-trk.netlify.app/list",
         ]
         const matchingUrl = expectedUrls.some(e => {
-            return url.includes(e)
+            return url.includes(e) || true
         })
         if (!matchingUrl) {
             document.getElementById('status_title').innerText = 'Wrong page'
