@@ -83,6 +83,6 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 chrome.tabs.onActivated.addListener(function(activeInfo) {
     chrome.scripting.executeScript({
         target: {tabId: activeInfo.tabId},
-        files: ['undo_content_script.js']
+        files: ['undo_content_script.js', 'webhook_interact.js']
     });
 })

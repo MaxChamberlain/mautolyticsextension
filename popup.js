@@ -1,17 +1,30 @@
 var bgp = chrome.extension.getBackgroundPage()
 
 document.addEventListener('DOMContentLoaded', function () {
-    var getAllbtn = document.getElementById("get_all");
-    getAllbtn.addEventListener('click', startGetAll);
-    var setAllbtn = document.getElementById("put_all");
-    setAllbtn.addEventListener('click', startPutAll);
+    // var getAllbtn = document.getElementById("get_all");
+    // getAllbtn.addEventListener('click', startGetAll);
+    // var setAllbtn = document.getElementById("put_all");
+    // setAllbtn.addEventListener('click', startPutAll);
     var btadd = document.getElementById("get_btn");
     btadd.addEventListener('click', startScraper);
-    var btinv = document.getElementById("inv_btn");
-    btinv.addEventListener('click', startInvScraper);
+    // var btinv = document.getElementById("inv_btn");
+    // btinv.addEventListener('click', startInvScraper);
     var btnput = document.getElementById("set_btn");
     btnput.addEventListener('click', putData);
 
+    document.querySelector('.has-data').addEventListener('click', () => {
+        // clear local storage
+        chrome.storage.local.clear(function() {
+            var error = chrome.runtime.lastError;
+            if (error) {
+                console.error(error);
+            }
+        });
+        document.getElementById('status').innerText = 'No data'
+        document.getElementById("set_btn").disabled = true;
+        document.getElementById('set_btn').style.opacity = '60%'
+        document.getElementById('status-box').classList.remove('has-data')
+    })
     // chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
     //     let url = tabs[0].url;
     //     url = url.split('?')[0]
@@ -62,6 +75,7 @@ chrome.storage.local.get('metrics', function (result) {
     if (result && result.metrics) {
         document.getElementById('status').innerText = result.metrics.type?.toUpperCase() + ': ' + result.metrics.v_vehicle + ' (' + result.metrics.v_stock_no + ')'
         document.getElementById("set_btn").disabled = false;
+        document.getElementById('status-box').classList.add('has-data')
     } else {
         document.getElementById('status').innerText = 'No data'
         document.getElementById("set_btn").disabled = true;

@@ -30,15 +30,19 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
             color: hsl(220, 100%, 40%);
         }
     `;
-    var style = document.createElement('style');
-
-    if (style.styleSheet){
-        style.styleSheet.cssText = css;
-    } else {
-        style.appendChild(document.createTextNode(css));
+    try{
+      let style3 = document.createElement('style');
+  
+      if (style3.styleSheet){
+          style3.styleSheet.cssText = css;
+      } else {
+          style3.appendChild(document.createTextNode(css));
+      }
+  
+      document.getElementsByTagName('head')[0].appendChild(style3);
+    } catch(e){
+      console.log(e)
     }
-
-    document.getElementsByTagName('head')[0].appendChild(style);
 
     let tableEl = document.querySelectorAll('.x-grid3')
     if(tableEl.length) {
@@ -58,7 +62,6 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
     
     
     document.querySelectorAll('.x-grid3-row-table').forEach((element, index) => {
-
         let borderEl = document.createElement('div');
         borderEl.id = 'new-borderEl-select-framework';
         borderEl.addEventListener('click', (e) => {
@@ -234,6 +237,7 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                                 v_initialCargurusSuggestedRange[1] = temp
                                             }
                                             let details = {
+                                                vAutoId: e['Id'],
                                                 v_stock_no: e['StockNumber'],
                                                 v_miles: e['Odometer'],
                                                 v_vehicle: e['VehicleTitle']?.toUpperCase(),
