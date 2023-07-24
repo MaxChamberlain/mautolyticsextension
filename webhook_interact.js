@@ -205,7 +205,7 @@ if(document.querySelector('#max_auto_provisioner_style_head')) document.querySel
         })
         document.getElementById('mauto_send_btn').innerText = 'Sending data...'
         sales.forEach(sale => {
-          fetch('http://localhost:9000/webhook', {
+          fetch('https://dealer-trk.herokuapp.com/webhook', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
