@@ -161,16 +161,16 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                                 let foundCarg = false
                                                 splitNotes.forEach((note, index) => {
                                                     if(note.toUpperCase() === 'MSRP'){
-                                                        v_msrp = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                        v_msrp = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                     }
                                                     if(note.toUpperCase() === 'MMR'){
                                                         v_initial_mmr = splitNotes[index + 1]
                                                     }
                                                     if(note.toUpperCase() === 'GR' || note.toUpperCase() === 'GREAT'){
                                                         if(foundCarg){
-                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                         } else {
-                                                          v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                          v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                           foundCarg = true
                                                         }
                                                         v_initial_carg_h = splitNotes[index + 1]
@@ -178,52 +178,52 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                                     }
                                                     if(note.toUpperCase() === 'G' || note.toUpperCase() === 'GOOD'){
                                                         if(foundCarg){
-                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                         } else {
-                                                          v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                          v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                           foundCarg = true
                                                         }
-                                                        v_initial_carg_h = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                        v_initial_carg_h = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                         v_initial_carg_level = 'goodPrice'
                                                     }
                                                     if(note.toUpperCase() === 'F' || note.toUpperCase() === 'FAIR'){
                                                         if(foundCarg){
-                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                         } else {
-                                                          v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                          v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                           foundCarg = true
                                                         }
-                                                        v_initial_carg_h = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                        v_initial_carg_h = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                         v_initial_carg_level = 'fairPrice'
                                                     }
                                                     if(note.toUpperCase() === 'IMV'){
                                                         if(foundCarg){
-                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                         } else {
-                                                          v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                          v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                           foundCarg = true
                                                         }
-                                                        v_initial_carg_h = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                        v_initial_carg_h = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                         v_initial_carg_level = 'fairPrice'
                                                       }
                                                     if(note.toUpperCase() === 'H' || note.toUpperCase() === 'HIGH'){
                                                         if(foundCarg){
-                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                         } else {
-                                                          v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                          v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                           foundCarg = true
                                                         }
-                                                        v_initial_carg_h = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                        v_initial_carg_h = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                         v_initial_carg_level = 'highPrice'
                                                     }
                                                     if(note.toUpperCase() === 'OP' || note.toUpperCase() === 'OVERPRICED'){
                                                         if(foundCarg){
-                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                            v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                         } else {
-                                                          v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                          v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                           foundCarg = true
                                                         }
-                                                        v_initial_carg_h = splitNotes[index + 1]?.replace(/\D/g, '')
+                                                        v_initial_carg_h = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
                                                         v_initial_carg_level = 'overPrice'
                                                     }
                                                     if(note.toUpperCase() === 'IMV'){
