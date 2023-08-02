@@ -52,7 +52,8 @@ async function getAllSales(){
     obj = obj.replace(/new Date\((\d+)\)/g, '$1')
     obj = obj.replace(/\\\\\",\\\"/g, "\",\"")
     obj = obj.replace(/\\\",\"/g, "\",\"")
-    obj = obj.replace(/\\([a-zA-Z0-9])/g, '$1')
+    obj = obj.replace(/\\([a-zA-Z0-9\s])/g, ' $1')
+    obj = obj.replace('+\\', '')
     console.log(obj)
     obj = JSON.parse(obj)
     console.log(obj)
@@ -70,7 +71,7 @@ async function getAllSales(){
     })
     return returnObjs
   }).then(e => {
-    fetch('http://localhost:9000/inventory/receive', {
+    fetch('https://beta-max-autolytics-42e7b1f0061c.herokuapp.com/inventory/receive', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
