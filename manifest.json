@@ -3,9 +3,9 @@
     "name": "Max Autolytics Provisioner",
     "version": "2.0",
     "icons": {
-      "16": "autolytics_logo.png",
-      "48": "autolytics_logo.png",
-      "128": "autolytics_logo.png"
+      "16": "logo.png",
+      "48": "logo.png",
+      "128": "logo.png"
     },
     "description": "A provisioner tool for Max Autolytics with vAuto Provision",
     "background": {
@@ -15,7 +15,7 @@
     "action": {
       "default_popup": "popup.html",
       "default_title": "Max Autolytics Provisioner",
-      "default_icon": "autolytics_logo.png"
+      "default_icon": "logo.png"
     },
     "host_permissions": [
       "https://www2.vauto.com/Va/Inventory/*"

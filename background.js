@@ -77,12 +77,29 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
                 }
             })
         }
+        if(request.type === 'store-name'){
+          chrome.storage.local.set({store: request.data}, function() {
+            console.log('store saved');
+          });
+        }
+        if(request.type === 'get-image-url') {
+          chrome.runtime.sendMessage({ type: 'receive-logo-image', data: chrome.runtime.getURL('logo.png') })
+      }
     });
 });
 
 chrome.tabs.onActivated.addListener(function(activeInfo) {
-    chrome.scripting.executeScript({
-        target: {tabId: activeInfo.tabId},
-        files: ['undo_content_script.js', 'webhook_interact.js']
-    });
+    //get current url
+    chrome.tabs.get(activeInfo.tabId, function(tab){
+        var url = tab.url;
+        if (!url.includes('vauto.com')) {
+          chrome.storage.local.remove('store', function() {})
+        }
+        if(url.includes('vauto.com') || url.includes('maxautolytics.com')) {
+          chrome.scripting.executeScript({
+              target: {tabId: activeInfo.tabId},
+              files: ['undo_content_script.js', 'webhook_interact.js']
+          });
+        }
+    })
 })

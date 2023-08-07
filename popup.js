@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var btnput = document.getElementById("set_btn");
     btnput.addEventListener('click', putData);
 
-    document.querySelector('.has-data').addEventListener('click', () => {
+    document.querySelector('.has-data')?.addEventListener('click', () => {
         // clear local storage
         chrome.storage.local.clear(function() {
             var error = chrome.runtime.lastError;
@@ -81,6 +81,12 @@ chrome.storage.local.get('metrics', function (result) {
         document.getElementById("set_btn").disabled = true;
         document.getElementById('set_btn').style.opacity = '60%'
     }
+})
+
+chrome.storage.local.get('store', function (result) {
+  if(result && result.store) {
+    document.getElementById('company-display').innerText = result.store
+  }
 })
 
 

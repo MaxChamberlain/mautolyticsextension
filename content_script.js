@@ -74,6 +74,7 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
             e.target.style.opacity = '0.7'
             document.getElementById('new-borderEl-select-framework-title').innerText = 'Max Autolytics : Loading...'
             const data = e.target.parentElement;
+            console.log(data)
             
             // this is the elements INSIDE the <tr> element
             let children = data.children[0].children[0].children;
