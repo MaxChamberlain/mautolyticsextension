@@ -1,3 +1,35 @@
+try{
+  observer.disconnect()
+} catch(e){
+  console.log(e)
+}
+let observer = new MutationObserver((mutations) => {
+  if(mutations.length > 0){
+    Array.from(document.getElementById('ext-gen25').children).forEach((e, i) => {
+      if(e.querySelector('.max_auto_provisioner_container')) e.querySelector('.max_auto_provisioner_container').remove()
+      let newElement = document.createElement('div')
+      newElement.classList.add('max_auto_provisioner_container')
+      newElement.style.backgroundColor = i % 2 === 0 ? '#ffffff' : '#F2F6FC'
+      let imgSrc = 'https://user-uploads-thumbs.shutterstock.com/aws-cloudfront-user-asset-uploads-prod-us-east-1/uploads/d610351e-a31f-4034-97b9-9a76362629dd/p/5956fb3efc0e623e77a7e0d539730250de53b6af/1691424425656/autolytics_logo_small-e2f16fee/png/1691424428/1500x1500/fit/6caa07c8c23786b9de2859e3191c5dc45adbeae6/autolytics_logo_small-e2f16fee.jpg'
+      newElement.innerHTML = `
+        <div style='display: flex; gap: 0.25rem; padding: 0.5rem;'>
+          <img src='${imgSrc}' style='height: 30px; width: 30px; border-radius: 50%;' class='hover-hover'>
+          <div id='get-btn' style='padding: 0.5rem; cursor: pointer; color: black; border: 1px solid black; border-radius: 0.5rem; ${!document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') && 'opacity: 0.5; pointer-events: none; cursor: default;'}'>
+            ${document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') ? 'Grab Sale Details' : 'Not a sale'}
+          </div>
+        </div>
+      `
+      // newElement.addEventListener('click', () => {
+      //   createOptionsMenu(newElement)
+      // })
+      e.insertAdjacentElement('beforeend', newElement)
+    e.querySelector('#get-btn').addEventListener('click', getSaleDetail)
+  })
+  }
+})
+
+observer.observe(document.getElementById('ext-gen25'), { childList: true })
+
 Array.from(document.getElementById('ext-gen25').children).forEach((e, i) => {
   if(e.querySelector('.max_auto_provisioner_container')) e.querySelector('.max_auto_provisioner_container').remove()
   let newElement = document.createElement('div')
@@ -5,14 +37,18 @@ Array.from(document.getElementById('ext-gen25').children).forEach((e, i) => {
   newElement.style.backgroundColor = i % 2 === 0 ? '#ffffff' : '#F2F6FC'
   let imgSrc = 'https://user-uploads-thumbs.shutterstock.com/aws-cloudfront-user-asset-uploads-prod-us-east-1/uploads/d610351e-a31f-4034-97b9-9a76362629dd/p/5956fb3efc0e623e77a7e0d539730250de53b6af/1691424425656/autolytics_logo_small-e2f16fee/png/1691424428/1500x1500/fit/6caa07c8c23786b9de2859e3191c5dc45adbeae6/autolytics_logo_small-e2f16fee.jpg'
   newElement.innerHTML = `
-    <div style='display: flex; gap: 0.25rem; cursor: pointer; padding: 0.5rem;'>
+    <div style='display: flex; gap: 0.25rem; padding: 0.5rem;'>
       <img src='${imgSrc}' style='height: 30px; width: 30px; border-radius: 50%;' class='hover-hover'>
+      <div id='get-btn' style='padding: 0.5rem; cursor: pointer; color: black; border: 1px solid black; border-radius: 0.5rem; ${!document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') && 'opacity: 0.5; pointer-events: none; cursor: default;'}'>
+        ${document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') ? 'Grab Sale Details' : 'Not a sale'}
+      </div>
     </div>
   `
-  newElement.addEventListener('click', () => {
-    createOptionsMenu(newElement)
-  })
+  // newElement.addEventListener('click', () => {
+  //   createOptionsMenu(newElement)
+  // })
   e.insertAdjacentElement('beforeend', newElement)
+  e.querySelector('#get-btn').addEventListener('click', getSaleDetail)
 })
 
 
@@ -143,58 +179,58 @@ async function getAllSales(){
   })
 }
 
-function createOptionsMenu (anchor) {
-  let backdrop = document.createElement('div')
-  backdrop.style.position = 'fixed'
-  backdrop.style.top = '0'
-  backdrop.style.left = '0'
-  backdrop.style.right = '0'
-  backdrop.style.bottom = '0'
-  backdrop.style.zIndex = '500'
-  backdrop.id = 'menu_mauto_lytics'
-  backdrop.addEventListener('click', () => {
-    document.getElementById('menu_mauto_lytics').remove()
-    document.getElementById('max_auto_provisioner_options_container').classList.remove('enter')
-    document.getElementById('max_auto_provisioner_options_container').classList.add('exit')
-    setTimeout(() => {
-      document.getElementById('max_auto_provisioner_options_container').remove()
-    }, 500)
-  })
-  anchor.parentElement.insertAdjacentElement('beforeend', backdrop)
+// function createOptionsMenu (anchor) {
+//   let backdrop = document.createElement('div')
+//   backdrop.style.position = 'fixed'
+//   backdrop.style.top = '0'
+//   backdrop.style.left = '0'
+//   backdrop.style.right = '0'
+//   backdrop.style.bottom = '0'
+//   backdrop.style.zIndex = '500'
+//   backdrop.id = 'menu_mauto_lytics'
+//   backdrop.addEventListener('click', () => {
+//     document.getElementById('menu_mauto_lytics').remove()
+//     document.getElementById('max_auto_provisioner_options_container').classList.remove('enter')
+//     document.getElementById('max_auto_provisioner_options_container').classList.add('exit')
+//     setTimeout(() => {
+//       document.getElementById('max_auto_provisioner_options_container').remove()
+//     }, 500)
+//   })
+//   anchor.parentElement.insertAdjacentElement('beforeend', backdrop)
 
-  let top = anchor.getBoundingClientRect().top
-  let left = anchor.getBoundingClientRect().left
+//   let top = anchor.getBoundingClientRect().top
+//   let left = anchor.getBoundingClientRect().left
 
-  let element = document.createElement('div')
-  element.style.backgroundColor = 'white'
-  element.style.borderRadius = '1rem'
-  element.style.padding = '0.5rem'
-  element.style.boxShadow = '0 0 5px 2px rgba(0,0,0,0.2)'
-  element.style.position = 'fixed'
-  element.style.top = `${top}px`
-  element.style.left = `${left}px`
-  element.style.zIndex = '9995'
-  element.id = 'max_auto_provisioner_options_container'
-  element.classList.add('enter')
+//   let element = document.createElement('div')
+//   element.style.backgroundColor = 'white'
+//   element.style.borderRadius = '1rem'
+//   element.style.padding = '0.5rem'
+//   element.style.boxShadow = '0 0 5px 2px rgba(0,0,0,0.2)'
+//   element.style.position = 'fixed'
+//   element.style.top = `${top}px`
+//   element.style.left = `${left}px`
+//   element.style.zIndex = '9995'
+//   element.id = 'max_auto_provisioner_options_container'
+//   element.classList.add('enter')
 
-    let get_sale_btn = document.createElement('div')
-    get_sale_btn.id = 'get_sale'
-    get_sale_btn.innerText = 'Grab Sale Details'
-    get_sale_btn.style.padding = '0.5rem'
-    get_sale_btn.style.cursor = 'pointer'
-    if(!document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY')) {
-      get_sale_btn.innerText = 'Not a sale'
-      get_sale_btn.style.opacity = 0.5
-      get_sale_btn.style.pointerEvents = 'none'
-      get_sale_btn.style.cursor = 'default'
-    } else {
-      get_sale_btn.addEventListener('click', getSaleDetail)
-    }
+//     let get_sale_btn = document.createElement('div')
+//     get_sale_btn.id = 'get_sale'
+//     get_sale_btn.innerText = 'Grab Sale Details'
+//     get_sale_btn.style.padding = '0.5rem'
+//     get_sale_btn.style.cursor = 'pointer'
+//     if(!document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY')) {
+//       get_sale_btn.innerText = 'Not a sale'
+//       get_sale_btn.style.opacity = 0.5
+//       get_sale_btn.style.pointerEvents = 'none'
+//       get_sale_btn.style.cursor = 'default'
+//     } else {
+//       get_sale_btn.addEventListener('click', getSaleDetail)
+//     }
 
-  element.appendChild(get_sale_btn)
+//   element.appendChild(get_sale_btn)
   
-  anchor.appendChild(element)
-}
+//   anchor.appendChild(element)
+// }
 
 function getSaleDetail(e){
 
@@ -287,12 +323,12 @@ function getSaleDetail(e){
                                   return returnObj
                               }).then(e => {
                                   document.getElementById('new-borderEl-select-framework-title').innerText = 'Max Autolytics : ' + e['VehicleTitle']
-                                  document.getElementById('menu_mauto_lytics').remove()
-                                  document.getElementById('max_auto_provisioner_options_container').classList.remove('enter')
-                                  document.getElementById('max_auto_provisioner_options_container').classList.add('exit')
-                                  setTimeout(() => {
-                                    document.getElementById('max_auto_provisioner_options_container').remove()
-                                  }, 500)
+                                  // document.getElementById('menu_mauto_lytics').remove()
+                                  // document.getElementById('max_auto_provisioner_options_container').classList.remove('enter')
+                                  // document.getElementById('max_auto_provisioner_options_container').classList.add('exit')
+                                  // setTimeout(() => {
+                                  //   document.getElementById('max_auto_provisioner_options_container').remove()
+                                  // }, 500)
                                   let notes = ''
                                   if(e['AppraisalCommmentRec'] != undefined){
                                       try{
