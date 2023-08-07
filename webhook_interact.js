@@ -1,41 +1,12 @@
-if(document.getElementById('m__ctrl_0_CurrentEntityDialog_entitySelectAnchor')){
-  chrome.runtime.sendMessage({ type: 'store-name', data: document.getElementById('m__ctrl_0_CurrentEntityDialog_entitySelectAnchor')?.innerText})
-}
-
-
-try{
-  let observer = new MutationObserver((mutations, observer) => {
-    document.querySelectorAll('.x-grid3-row').forEach((e, i) => {
-      if(e.querySelector('.max_auto_provisioner_container')) e.querySelector('.max_auto_provisioner_container').remove()
-      let newElement = document.createElement('div')
-      newElement.classList.add('max_auto_provisioner_container')
-      newElement.style.backgroundColor = i % 2 === 0 ? '#ffffff' : '#F2F6FC'
-      let imgSrc = 'https://user-uploads-thumbs.shutterstock.com/aws-cloudfront-user-asset-uploads-prod-us-east-1/uploads/d610351e-a31f-4034-97b9-9a76362629dd/p/5956fb3efc0e623e77a7e0d539730250de53b6af/1691424425656/autolytics_logo_small-e2f16fee/png/1691424428/1500x1500/fit/6caa07c8c23786b9de2859e3191c5dc45adbeae6/autolytics_logo_small-e2f16fee.jpg'
-      newElement.innerHTML = `
-        <div style='display: flex; gap: 0.25rem; margin-top: 45px; cursor: pointer; padding: 0.5rem;'>
-          <img src='${imgSrc}' style='height: 30px; width: 30px; border-radius: 50%;'>
-        </div>
-      `
-      newElement.addEventListener('click', () => {
-        createOptionsMenu(newElement)
-      })
-      e.insertAdjacentElement('beforeend', newElement)
-    })
-  })
-  observer.observe(document.querySelector('.x-grid3-body'), { childList: true })
-} catch(e) {
-  console.log(e)
-}
-
-document.querySelectorAll('.x-grid3-row').forEach((e, i) => {
+Array.from(document.getElementById('ext-gen25').children).forEach((e, i) => {
   if(e.querySelector('.max_auto_provisioner_container')) e.querySelector('.max_auto_provisioner_container').remove()
   let newElement = document.createElement('div')
   newElement.classList.add('max_auto_provisioner_container')
   newElement.style.backgroundColor = i % 2 === 0 ? '#ffffff' : '#F2F6FC'
   let imgSrc = 'https://user-uploads-thumbs.shutterstock.com/aws-cloudfront-user-asset-uploads-prod-us-east-1/uploads/d610351e-a31f-4034-97b9-9a76362629dd/p/5956fb3efc0e623e77a7e0d539730250de53b6af/1691424425656/autolytics_logo_small-e2f16fee/png/1691424428/1500x1500/fit/6caa07c8c23786b9de2859e3191c5dc45adbeae6/autolytics_logo_small-e2f16fee.jpg'
   newElement.innerHTML = `
-    <div style='display: flex; gap: 0.25rem; margin-top: 45px; cursor: pointer; padding: 0.5rem;'>
-      <img src='${imgSrc}' style='height: 30px; width: 30px; border-radius: 50%;'>
+    <div style='display: flex; gap: 0.25rem; cursor: pointer; padding: 0.5rem;'>
+      <img src='${imgSrc}' style='height: 30px; width: 30px; border-radius: 50%;' class='hover-hover'>
     </div>
   `
   newElement.addEventListener('click', () => {
@@ -43,6 +14,7 @@ document.querySelectorAll('.x-grid3-row').forEach((e, i) => {
   })
   e.insertAdjacentElement('beforeend', newElement)
 })
+
 
 if(document.querySelector('.max_auto_provisioner_container')) document.querySelector('.max_auto_provisioner_container').remove()
 if(document.querySelector('#max_auto_provisioner_style_head')) document.querySelector('#max_auto_provisioner_style_head').remove()
@@ -85,6 +57,12 @@ if(document.querySelector('#max_auto_provisioner_style_head')) document.querySel
     .exit {
       animation: fade-out 0.5s ease-in-out;
     }
+    .hover-hover:hover:first-child {
+      box-shadow: 0 0 5px 2px rgba(0,0,0,0.2);
+    }
+    .hover-hover:first-child {
+      transition: box-shadow 0.5s ease-in-out;
+    }
   `
   document.head.appendChild(style)
   let container = document.createElement('div')
@@ -119,7 +97,7 @@ async function getAllSales(){
     },
     "referrer": "https://www2.vauto.com/Va/Inventory/",
     "referrerPolicy": "strict-origin-when-cross-origin",
-    "body": "_pageSize=1000&_sortBy=DaysInInventory%20ASC&sorts=&_firstRecord=0&InventoryStatus=0&Historical=0&RetailWholesale=R&NewUsed=U&ExcludeFromCounts=0&customSettings=%5B%7B%22id%22%3A%22NADA_Retail%22%2C%22value%22%3A%220%22%2C%22condition%22%3A%22Clean%22%2C%22conditionLabel%22%3A%22Clean%22%2C%22type%22%3A%22priceguide%22%7D%2C%7B%22id%22%3A%22NADA_TradeIn%22%2C%22value%22%3A%220%22%2C%22condition%22%3A%22Clean%22%2C%22conditionLabel%22%3A%22Clean%22%2C%22type%22%3A%22priceguide%22%7D%2C%7B%22id%22%3A%22KBBOnline_UCFPP%22%2C%22value%22%3A%220%22%2C%22condition%22%3A%22Excellent%22%2C%22conditionLabel%22%3A%22Excellent%22%2C%22type%22%3A%22priceguide%22%7D%2C%7B%22id%22%3A%22KelleyBlueBook_Wholesale%22%2C%22value%22%3A%220%22%2C%22condition%22%3A%22Excellent%22%2C%22conditionLabel%22%3A%22Excellent%22%2C%22type%22%3A%22priceguide%22%7D%2C%7B%22id%22%3A%22KelleyBlueBook_Retail%22%2C%22value%22%3A%220%22%2C%22condition%22%3A%22Excellent%22%2C%22conditionLabel%22%3A%22Excellent%22%2C%22type%22%3A%22priceguide%22%7D%5D&HqTranferEntityNotSame=false&QuickSearch=&SalePending=&PricingTargetSetId=&RankingBucket=&ChildEntity=&gridSrcName=inventoryDetail&switchReport=",
+    "body": "_pageSize=1000&_sortBy=DaysInInventory%20ASC&sorts=&_firstRecord=0&InventoryStatus=0&Historical=0&RetailWholesale=R&NewUsed=U&ExcludeFromCounts=0&customSettings=%5B%7B id %3A NADA_Retail %2C value %3A 0 %2C condition %3A Clean %2C conditionLabel %3A Clean %2C type %3A priceguide %7D%2C%7B id %3A NADA_TradeIn %2C value %3A 0 %2C condition %3A Clean %2C conditionLabel %3A Clean %2C type %3A priceguide %7D%2C%7B id %3A KBBOnline_UCFPP %2C value %3A 0 %2C condition %3A Excellent %2C conditionLabel %3A Excellent %2C type %3A priceguide %7D%2C%7B id %3A KelleyBlueBook_Wholesale %2C value %3A 0 %2C condition %3A Excellent %2C conditionLabel %3A Excellent %2C type %3A priceguide %7D%2C%7B id %3A KelleyBlueBook_Retail %2C value %3A 0 %2C condition %3A Excellent %2C conditionLabel %3A Excellent %2C type %3A priceguide %7D%5D&HqTranferEntityNotSame=false&QuickSearch=&SalePending=&PricingTargetSetId=&RankingBucket=&ChildEntity=&gridSrcName=inventoryDetail&switchReport=",
     "method": "POST",
     "mode": "cors",
     "credentials": "include"
@@ -199,12 +177,19 @@ function createOptionsMenu (anchor) {
   element.id = 'max_auto_provisioner_options_container'
   element.classList.add('enter')
 
-  let get_sale_btn = document.createElement('div')
-  get_sale_btn.id = 'get_sale'
-  get_sale_btn.innerText = 'Grab Sale Details'
-  get_sale_btn.style.padding = '0.5rem'
-  get_sale_btn.style.cursor = 'pointer'
-  get_sale_btn.addEventListener('click', getSaleDetail)
+    let get_sale_btn = document.createElement('div')
+    get_sale_btn.id = 'get_sale'
+    get_sale_btn.innerText = 'Grab Sale Details'
+    get_sale_btn.style.padding = '0.5rem'
+    get_sale_btn.style.cursor = 'pointer'
+    if(!document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY')) {
+      get_sale_btn.innerText = 'Not a sale'
+      get_sale_btn.style.opacity = 0.5
+      get_sale_btn.style.pointerEvents = 'none'
+      get_sale_btn.style.cursor = 'default'
+    } else {
+      get_sale_btn.addEventListener('click', getSaleDetail)
+    }
 
   element.appendChild(get_sale_btn)
   

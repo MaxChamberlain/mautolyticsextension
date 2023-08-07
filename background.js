@@ -89,17 +89,17 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 });
 
 chrome.tabs.onActivated.addListener(function(activeInfo) {
-    //get current url
-    chrome.tabs.get(activeInfo.tabId, function(tab){
-        var url = tab.url;
-        if (!url.includes('vauto.com')) {
-          chrome.storage.local.remove('store', function() {})
-        }
-        if(url.includes('vauto.com') || url.includes('maxautolytics.com')) {
-          chrome.scripting.executeScript({
-              target: {tabId: activeInfo.tabId},
-              files: ['undo_content_script.js', 'webhook_interact.js']
-          });
-        }
-    })
+  //get current url
+  chrome.tabs.get(activeInfo.tabId, function(tab){
+      var url = tab.url;
+      if (!url.includes('vauto.com')) {
+        chrome.storage.local.remove('store', function() {})
+      }
+      if(url.includes('vauto.com') || url.includes('maxautolytics.com')) {
+        chrome.scripting.executeScript({
+            target: {tabId: activeInfo.tabId},
+            files: ['undo_content_script.js', 'webhook_interact.js']
+        });
+      }
+  })
 })
