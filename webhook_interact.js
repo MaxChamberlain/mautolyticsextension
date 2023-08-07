@@ -232,7 +232,7 @@ async function getAllSales(){
 //   anchor.appendChild(element)
 // }
 
-function getSaleDetail(e){
+function getSaleDetail(btn){
 
   let tableEl = document.querySelectorAll('.x-grid3')
   if(tableEl.length) {
@@ -250,15 +250,14 @@ function getSaleDetail(e){
       tableEl.insertBefore(titleEl, tableEl.firstChild)
   }
   
-  e.stopPropagation();
-  e.target.removeEventListener('click', e => e)
-  e.target.style.backgroundColor = '#ccc'
-  e.target.style.border = '1px dashed #999'
-  e.target.style.cursor = 'default'
-  e.target.style.pointerEvents = 'none'
-  e.target.style.opacity = '0.7'
-  const data = e.target.parentElement.parentElement.parentElement.children[0];
-  console.log(data)
+  btn.stopPropagation();
+  btn.target.removeEventListener('click', e => e)
+  btn.target.style.backgroundColor = '#ccc'
+  btn.target.style.border = '1px dashed #999'
+  btn.target.style.cursor = 'default'
+  btn.target.style.pointerEvents = 'none'
+  btn.target.style.opacity = '0.7'
+  const data = btn.target.parentElement.parentElement.parentElement.children[0];
   
   // this is the elements INSIDE the <tr> element
   let children = data.children[0].children[0].children;
@@ -454,6 +453,12 @@ function getSaleDetail(e){
                                   }   
                                   console.log(details)
                                   chrome.runtime.sendMessage({ type: 'gathered-metrics-data', data: details})
+                                  btn.target.addEventListener('click', getSaleDetail)
+                                  btn.target.style.backgroundColor = 'transparent'
+                                  btn.target.style.border = '1px solid #000'
+                                  btn.target.style.cursor = 'pointer'
+                                  btn.target.style.pointerEvents = 'all'
+                                  btn.target.style.opacity = '1'
                               })
                           }
                       } catch(e) {
@@ -464,6 +469,12 @@ function getSaleDetail(e){
                               });
                           }
                           document.getElementById('new-borderEl-select-framework-title').innerText = 'Max Autolytics : There was an error. Do you have the "Left Inventory" filter selected?'
+                          btn.target.addEventListener('click', getSaleDetail)
+                          btn.target.style.backgroundColor = 'transparent'
+                          btn.target.style.border = '1px solid #000'
+                          btn.target.style.cursor = 'pointer'
+                          btn.target.style.pointerEvents = 'all'
+                          btn.target.style.opacity = '1'
                       }
                   }
               })
