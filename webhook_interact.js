@@ -1,116 +1,120 @@
-try{
-  observer.disconnect()
-} catch(e){
-  console.log(e)
-}
-let observer = new MutationObserver((mutations) => {
-  if(mutations.length > 0){
-    Array.from(document.getElementById('ext-gen25').children).forEach((e, i) => {
-      if(e.querySelector('.max_auto_provisioner_container')) e.querySelector('.max_auto_provisioner_container').remove()
-      let newElement = document.createElement('div')
-      newElement.classList.add('max_auto_provisioner_container')
-      newElement.style.backgroundColor = i % 2 === 0 ? '#ffffff' : '#F2F6FC'
-      let imgSrc = 'https://user-uploads-thumbs.shutterstock.com/aws-cloudfront-user-asset-uploads-prod-us-east-1/uploads/d610351e-a31f-4034-97b9-9a76362629dd/p/5956fb3efc0e623e77a7e0d539730250de53b6af/1691424425656/autolytics_logo_small-e2f16fee/png/1691424428/1500x1500/fit/6caa07c8c23786b9de2859e3191c5dc45adbeae6/autolytics_logo_small-e2f16fee.jpg'
-      newElement.innerHTML = `
-        <div style='display: flex; gap: 0.25rem; padding: 0.5rem;'>
-          <img src='${imgSrc}' style='height: 30px; width: 30px; border-radius: 50%;' class='hover-hover'>
-          <div id='get-btn' style='padding: 0.5rem; cursor: pointer; color: black; border: 1px solid black; border-radius: 0.5rem; ${!document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') && 'opacity: 0.5; pointer-events: none; cursor: default;'}'>
-            ${document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') ? 'Grab Sale Details' : 'Not a sale'}
+insertElements()
+
+function insertElements(){
+  try{
+    observer.disconnect()
+  } catch(e){
+    console.log(e)
+  }
+  let observer = new MutationObserver((mutations) => {
+    if(mutations.length > 0){
+      Array.from(document.getElementById('ext-gen25').children).forEach((e, i) => {
+        if(e.querySelector('.max_auto_provisioner_container')) e.querySelector('.max_auto_provisioner_container').remove()
+        let newElement = document.createElement('div')
+        newElement.classList.add('max_auto_provisioner_container')
+        newElement.style.backgroundColor = i % 2 === 0 ? '#ffffff' : '#F2F6FC'
+        let imgSrc = 'https://user-uploads-thumbs.shutterstock.com/aws-cloudfront-user-asset-uploads-prod-us-east-1/uploads/d610351e-a31f-4034-97b9-9a76362629dd/p/5956fb3efc0e623e77a7e0d539730250de53b6af/1691424425656/autolytics_logo_small-e2f16fee/png/1691424428/1500x1500/fit/6caa07c8c23786b9de2859e3191c5dc45adbeae6/autolytics_logo_small-e2f16fee.jpg'
+        newElement.innerHTML = `
+          <div style='display: flex; gap: 0.25rem; padding: 0.5rem;'>
+            <img src='${imgSrc}' style='height: 30px; width: 30px; border-radius: 50%;' class='hover-hover'>
+            <div id='get-btn' style='padding: 0.5rem; cursor: pointer; color: black; border: 1px solid black; border-radius: 0.5rem; ${!document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') && 'opacity: 0.5; pointer-events: none; cursor: default;'}'>
+              ${document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') ? 'Grab Sale Details' : 'Not a sale'}
+            </div>
           </div>
+        `
+        // newElement.addEventListener('click', () => {
+        //   createOptionsMenu(newElement)
+        // })
+        e.insertAdjacentElement('beforeend', newElement)
+      e.querySelector('#get-btn').addEventListener('click', getSaleDetail)
+    })
+    }
+  })
+  
+  observer.observe(document.getElementById('ext-gen25'), { childList: true })
+  
+  Array.from(document.getElementById('ext-gen25').children).forEach((e, i) => {
+    if(e.querySelector('.max_auto_provisioner_container')) e.querySelector('.max_auto_provisioner_container').remove()
+    let newElement = document.createElement('div')
+    newElement.classList.add('max_auto_provisioner_container')
+    newElement.style.backgroundColor = i % 2 === 0 ? '#ffffff' : '#F2F6FC'
+    let imgSrc = 'https://user-uploads-thumbs.shutterstock.com/aws-cloudfront-user-asset-uploads-prod-us-east-1/uploads/d610351e-a31f-4034-97b9-9a76362629dd/p/5956fb3efc0e623e77a7e0d539730250de53b6af/1691424425656/autolytics_logo_small-e2f16fee/png/1691424428/1500x1500/fit/6caa07c8c23786b9de2859e3191c5dc45adbeae6/autolytics_logo_small-e2f16fee.jpg'
+    newElement.innerHTML = `
+      <div style='display: flex; gap: 0.25rem; padding: 0.5rem;'>
+        <img src='${imgSrc}' style='height: 30px; width: 30px; border-radius: 50%;' class='hover-hover'>
+        <div id='get-btn' style='padding: 0.5rem; cursor: pointer; color: black; border: 1px solid black; border-radius: 0.5rem; ${!document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') && 'opacity: 0.5; pointer-events: none; cursor: default;'}'>
+          ${document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') ? 'Grab Sale Details' : 'Not a sale'}
         </div>
-      `
-      // newElement.addEventListener('click', () => {
-      //   createOptionsMenu(newElement)
-      // })
-      e.insertAdjacentElement('beforeend', newElement)
+      </div>
+    `
+    // newElement.addEventListener('click', () => {
+    //   createOptionsMenu(newElement)
+    // })
+    e.insertAdjacentElement('beforeend', newElement)
     e.querySelector('#get-btn').addEventListener('click', getSaleDetail)
   })
-  }
-})
-
-observer.observe(document.getElementById('ext-gen25'), { childList: true })
-
-Array.from(document.getElementById('ext-gen25').children).forEach((e, i) => {
-  if(e.querySelector('.max_auto_provisioner_container')) e.querySelector('.max_auto_provisioner_container').remove()
-  let newElement = document.createElement('div')
-  newElement.classList.add('max_auto_provisioner_container')
-  newElement.style.backgroundColor = i % 2 === 0 ? '#ffffff' : '#F2F6FC'
-  let imgSrc = 'https://user-uploads-thumbs.shutterstock.com/aws-cloudfront-user-asset-uploads-prod-us-east-1/uploads/d610351e-a31f-4034-97b9-9a76362629dd/p/5956fb3efc0e623e77a7e0d539730250de53b6af/1691424425656/autolytics_logo_small-e2f16fee/png/1691424428/1500x1500/fit/6caa07c8c23786b9de2859e3191c5dc45adbeae6/autolytics_logo_small-e2f16fee.jpg'
-  newElement.innerHTML = `
-    <div style='display: flex; gap: 0.25rem; padding: 0.5rem;'>
-      <img src='${imgSrc}' style='height: 30px; width: 30px; border-radius: 50%;' class='hover-hover'>
-      <div id='get-btn' style='padding: 0.5rem; cursor: pointer; color: black; border: 1px solid black; border-radius: 0.5rem; ${!document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') && 'opacity: 0.5; pointer-events: none; cursor: default;'}'>
-        ${document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') ? 'Grab Sale Details' : 'Not a sale'}
+  
+  
+  if(document.querySelector('.max_auto_provisioner_container')) document.querySelector('.max_auto_provisioner_container').remove()
+  if(document.querySelector('#max_auto_provisioner_style_head')) document.querySelector('#max_auto_provisioner_style_head').remove()
+    let style = document.createElement('style')
+    style.classList.add('max_auto_provisioner_options_container')
+    style.innerHTML = `
+      .max_auto_provisioner_container {
+        height: fit-content;
+        background: #ccc;
+        width: 100vw;
+      }
+      .max_auto_provisioner_options_container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100px;
+        padding: 16px;
+      }
+  
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes fade-out {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+  
+      .enter {
+        animation: fade-in 0.5s ease-in-out;
+      }
+      .exit {
+        animation: fade-out 0.5s ease-in-out;
+      }
+      .hover-hover:hover:first-child {
+        box-shadow: 0 0 5px 2px rgba(0,0,0,0.2);
+      }
+      .hover-hover:first-child {
+        transition: box-shadow 0.5s ease-in-out;
+      }
+    `
+    document.head.appendChild(style)
+    let container = document.createElement('div')
+    container.classList.add('max_auto_provisioner_container')
+    container.innerHTML = `
+      <div style='background-color: #aaa; box-shadow: 0 0 5px 2px rgba(0,0,0,0.2); padding: 10px; width: fit-content; color: white; cursor: pointer;' id='mauto_send_btn'>
+        Send Inventory Snapshot to Max Autolytics
       </div>
-    </div>
-  `
-  // newElement.addEventListener('click', () => {
-  //   createOptionsMenu(newElement)
-  // })
-  e.insertAdjacentElement('beforeend', newElement)
-  e.querySelector('#get-btn').addEventListener('click', getSaleDetail)
-})
-
-
-if(document.querySelector('.max_auto_provisioner_container')) document.querySelector('.max_auto_provisioner_container').remove()
-if(document.querySelector('#max_auto_provisioner_style_head')) document.querySelector('#max_auto_provisioner_style_head').remove()
-  let style = document.createElement('style')
-  style.classList.add('max_auto_provisioner_options_container')
-  style.innerHTML = `
-    .max_auto_provisioner_container {
-      height: fit-content;
-      background: #ccc;
-      width: 100vw;
-    }
-    .max_auto_provisioner_options_container {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      height: 100px;
-      padding: 16px;
-    }
-
-    @keyframes fade-in {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-    @keyframes fade-out {
-      from {
-        opacity: 1;
-      }
-      to {
-        opacity: 0;
-      }
-    }
-
-    .enter {
-      animation: fade-in 0.5s ease-in-out;
-    }
-    .exit {
-      animation: fade-out 0.5s ease-in-out;
-    }
-    .hover-hover:hover:first-child {
-      box-shadow: 0 0 5px 2px rgba(0,0,0,0.2);
-    }
-    .hover-hover:first-child {
-      transition: box-shadow 0.5s ease-in-out;
-    }
-  `
-  document.head.appendChild(style)
-  let container = document.createElement('div')
-  container.classList.add('max_auto_provisioner_container')
-  container.innerHTML = `
-    <div style='background-color: #aaa; box-shadow: 0 0 5px 2px rgba(0,0,0,0.2); padding: 10px; width: fit-content; color: white; cursor: pointer;' id='mauto_send_btn'>
-      Send Inventory Snapshot to Max Autolytics
-    </div>
-  `
-  document.getElementById('header2').style.marginTop = '70px'
-  document.body.insertAdjacentElement('afterbegin', container)
-  document.getElementById('mauto_send_btn').addEventListener('click', getAllSales)
+    `
+    document.getElementById('header2').style.marginTop = '70px'
+    document.body.insertAdjacentElement('afterbegin', container)
+    document.getElementById('mauto_send_btn').addEventListener('click', getAllSales)
+}
 
 async function getAllSales(){
   document.getElementById('mauto_send_btn').removeEventListener('click', getAllSales)
