@@ -98,7 +98,13 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                     let label = subChild.children[0]?.innerText
                                     let value = subChild.children[1]?.innerText
                                     if(label === 'VIN:'){
-                                        fetch('https://www2.vauto.com/Va/Inventory/InventoryData.ashx?QuickSearch=' + value + "&gridSrcName=inventoryDetail&IsExactWordMatch=false&HistoricalDaySpan=60", {
+                                      let url = 'https://www2.vauto.com/Va/Inventory/InventoryData.ashx?QuickSearch=' + value + "&gridSrcName=inventoryDetail&IsExactWordMatch=false"
+                                      if(document.getElementById('filterDescription')){
+                                        if(document.getElementById('filterDescription').innerText.toLowerCase().includes('left inventory')){
+                                          url += "&HistoricalDaySpan=90"
+                                        }
+                                      }
+                                        fetch(url, {
                                             "headers": {
                                                 "accept": "application/json, text/javascript, */*; q=0.01",
                                                 "accept-language": "en-US,en;q=0.9",
@@ -120,8 +126,8 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                             obj = obj.replace(/\\\",\"/g, "\",\"")
                                             obj = obj.replace(/\+/g, ' ')
                                             obj = obj.replace(/\\\ /g, ' ')
-                                            console.log(obj)
                                             obj = JSON.parse(obj)
+                                            console.log(obj)
                                             if(obj.rows.length === 0){
                                                 if(document.querySelectorAll('#new-borderEl-select-framework') && document.querySelectorAll('#new-borderEl-select-framework').length > 0){
                                                     document.querySelectorAll('#new-borderEl-select-framework').forEach((element) => {
@@ -136,6 +142,7 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                             obj.columns.forEach((column, index) => {
                                                 returnObj[column] = obj.rows[0][index]
                                             })
+                                            console.log(returnObj)
                                             return returnObj
                                         }).then(e => {
                                             document.getElementById('new-borderEl-select-framework-title').innerText = 'Max Autolytics : ' + e['VehicleTitle']
@@ -237,13 +244,19 @@ if(document.querySelectorAll('.x-grid3-row-table') && document.querySelectorAll(
                                                 v_initialCargurusSuggestedRange[0] = v_initialCargurusSuggestedRange[1]
                                                 v_initialCargurusSuggestedRange[1] = temp
                                             }
+                                            let source = e['VehicleSource']
+                                            if(e.InventoryTags){
+                                              if(e.InventoryTags.includes('source-')){
+                                                source = e.InventoryTags.split(',')[0].split('source-')[1].replace('-', ' ').toUpperCase()
+                                              }
+                                            }
                                             let details = {
                                                 vAutoId: e['Id'],
                                                 v_stock_no: e['StockNumber'],
                                                 v_miles: e['Odometer'],
                                                 v_vehicle: e['VehicleTitle']?.toUpperCase(),
                                                 v_vin_no: e['Vin'],
-                                                v_source: e['VehicleSource'],
+                                                v_source: source,
                                                 v_zip: e['AppraisedPostalCode'],
                                                 v_is_certified: e['IsCertified'] === 1 ? true : false,
                                                 v_notes: notes,

@@ -1,58 +1,58 @@
 insertElements()
 
 function insertElements(){
-  try{
-    observer.disconnect()
-  } catch(e){
-    console.log(e)
-  }
-  let observer = new MutationObserver((mutations) => {
-    if(mutations.length > 0){
-      Array.from(document.getElementById('ext-gen25').children).forEach((e, i) => {
-        if(e.querySelector('.max_auto_provisioner_container')) e.querySelector('.max_auto_provisioner_container').remove()
-        let newElement = document.createElement('div')
-        newElement.classList.add('max_auto_provisioner_container')
-        newElement.style.backgroundColor = i % 2 === 0 ? '#ffffff' : '#F2F6FC'
-        let imgSrc = 'https://user-uploads-thumbs.shutterstock.com/aws-cloudfront-user-asset-uploads-prod-us-east-1/uploads/d610351e-a31f-4034-97b9-9a76362629dd/p/5956fb3efc0e623e77a7e0d539730250de53b6af/1691424425656/autolytics_logo_small-e2f16fee/png/1691424428/1500x1500/fit/6caa07c8c23786b9de2859e3191c5dc45adbeae6/autolytics_logo_small-e2f16fee.jpg'
-        newElement.innerHTML = `
-          <div style='display: flex; gap: 0.25rem; padding: 0.5rem;'>
-            <img src='${imgSrc}' style='height: 30px; width: 30px; border-radius: 50%;' class='hover-hover'>
-            <div id='get-btn' style='padding: 0.5rem; cursor: pointer; color: black; border: 1px solid black; border-radius: 0.5rem; ${!document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') && 'opacity: 0.5; pointer-events: none; cursor: default;'}'>
-              ${document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') ? 'Grab Sale Details' : 'Not a sale'}
-            </div>
-          </div>
-        `
-        // newElement.addEventListener('click', () => {
-        //   createOptionsMenu(newElement)
-        // })
-        e.insertAdjacentElement('beforeend', newElement)
-      e.querySelector('#get-btn').addEventListener('click', getSaleDetail)
-    })
-    }
-  })
+//   try{
+//     observer.disconnect()
+//   } catch(e){
+//     console.log(e)
+//   }
+//   let observer = new MutationObserver((mutations) => {
+//     if(mutations.length > 0){
+//       Array.from(document.getElementById('ext-gen25').children).forEach((e, i) => {
+//         if(e.querySelector('.max_auto_provisioner_container')) e.querySelector('.max_auto_provisioner_container').remove()
+//         let newElement = document.createElement('div')
+//         newElement.classList.add('max_auto_provisioner_container')
+//         newElement.style.backgroundColor = i % 2 === 0 ? '#ffffff' : '#F2F6FC'
+//         let imgSrc = 'https://user-uploads-thumbs.shutterstock.com/aws-cloudfront-user-asset-uploads-prod-us-east-1/uploads/d610351e-a31f-4034-97b9-9a76362629dd/p/5956fb3efc0e623e77a7e0d539730250de53b6af/1691424425656/autolytics_logo_small-e2f16fee/png/1691424428/1500x1500/fit/6caa07c8c23786b9de2859e3191c5dc45adbeae6/autolytics_logo_small-e2f16fee.jpg'
+//         newElement.innerHTML = `
+//           <div style='display: flex; gap: 0.25rem; padding: 0.5rem;'>
+//             <img src='${imgSrc}' style='height: 30px; width: 30px; border-radius: 50%;' class='hover-hover'>
+//             <div id='get-btn' style='padding: 0.5rem; cursor: pointer; color: black; border: 1px solid black; border-radius: 0.5rem; ${!document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') && 'opacity: 0.5; pointer-events: none; cursor: default;'}'>
+//               ${document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') ? 'Grab Sale Details' : 'Not a sale'}
+//             </div>
+//           </div>
+//         `
+//         // newElement.addEventListener('click', () => {
+//         //   createOptionsMenu(newElement)
+//         // })
+//         e.insertAdjacentElement('beforeend', newElement)
+//       e.querySelector('#get-btn').addEventListener('click', getSaleDetail)
+//     })
+//     }
+// //   })
   
-  observer.observe(document.getElementById('ext-gen25'), { childList: true })
+//   observer.observe(document.getElementById('ext-gen25'), { childList: true })
   
-  Array.from(document.getElementById('ext-gen25').children).forEach((e, i) => {
-    if(e.querySelector('.max_auto_provisioner_container')) e.querySelector('.max_auto_provisioner_container').remove()
-    let newElement = document.createElement('div')
-    newElement.classList.add('max_auto_provisioner_container')
-    newElement.style.backgroundColor = i % 2 === 0 ? '#ffffff' : '#F2F6FC'
-    let imgSrc = 'https://user-uploads-thumbs.shutterstock.com/aws-cloudfront-user-asset-uploads-prod-us-east-1/uploads/d610351e-a31f-4034-97b9-9a76362629dd/p/5956fb3efc0e623e77a7e0d539730250de53b6af/1691424425656/autolytics_logo_small-e2f16fee/png/1691424428/1500x1500/fit/6caa07c8c23786b9de2859e3191c5dc45adbeae6/autolytics_logo_small-e2f16fee.jpg'
-    newElement.innerHTML = `
-      <div style='display: flex; gap: 0.25rem; padding: 0.5rem;'>
-        <img src='${imgSrc}' style='height: 30px; width: 30px; border-radius: 50%;' class='hover-hover'>
-        <div id='get-btn' style='padding: 0.5rem; cursor: pointer; color: black; border: 1px solid black; border-radius: 0.5rem; ${!document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') && 'opacity: 0.5; pointer-events: none; cursor: default;'}'>
-          ${document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') ? 'Grab Sale Details' : 'Not a sale'}
-        </div>
-      </div>
-    `
-    // newElement.addEventListener('click', () => {
-    //   createOptionsMenu(newElement)
-    // })
-    e.insertAdjacentElement('beforeend', newElement)
-    e.querySelector('#get-btn').addEventListener('click', getSaleDetail)
-  })
+//   Array.from(document.getElementById('ext-gen25').children).forEach((e, i) => {
+//     if(e.querySelector('.max_auto_provisioner_container')) e.querySelector('.max_auto_provisioner_container').remove()
+//     let newElement = document.createElement('div')
+//     newElement.classList.add('max_auto_provisioner_container')
+//     newElement.style.backgroundColor = i % 2 === 0 ? '#ffffff' : '#F2F6FC'
+//     let imgSrc = 'https://user-uploads-thumbs.shutterstock.com/aws-cloudfront-user-asset-uploads-prod-us-east-1/uploads/d610351e-a31f-4034-97b9-9a76362629dd/p/5956fb3efc0e623e77a7e0d539730250de53b6af/1691424425656/autolytics_logo_small-e2f16fee/png/1691424428/1500x1500/fit/6caa07c8c23786b9de2859e3191c5dc45adbeae6/autolytics_logo_small-e2f16fee.jpg'
+//     newElement.innerHTML = `
+//       <div style='display: flex; gap: 0.25rem; padding: 0.5rem;'>
+//         <img src='${imgSrc}' style='height: 30px; width: 30px; border-radius: 50%;' class='hover-hover'>
+//         <div id='get-btn' style='padding: 0.5rem; cursor: pointer; color: black; border: 1px solid black; border-radius: 0.5rem; ${!document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') && 'opacity: 0.5; pointer-events: none; cursor: default;'}'>
+//           ${document.getElementById('filterDescription').innerText.toUpperCase().includes('LEFT INVENTORY') ? 'Grab Sale Details' : 'Not a sale'}
+//         </div>
+//       </div>
+//     `
+//     // newElement.addEventListener('click', () => {
+//     //   createOptionsMenu(newElement)
+//     // })
+//     e.insertAdjacentElement('beforeend', newElement)
+//     e.querySelector('#get-btn').addEventListener('click', getSaleDetail)
+//   })
   
   
   if(document.querySelector('.max_auto_provisioner_container')) document.querySelector('.max_auto_provisioner_container').remove()
@@ -150,7 +150,6 @@ async function getAllSales(){
     obj = obj.replace('+\\', '')
     console.log(obj)
     obj = JSON.parse(obj)
-    console.log(obj)
     let returnObjs = []
     let keys = []
     obj.columns.forEach((column, index) => {
@@ -236,255 +235,255 @@ async function getAllSales(){
 //   anchor.appendChild(element)
 // }
 
-function getSaleDetail(btn){
+// function getSaleDetail(btn){
 
-  let tableEl = document.querySelectorAll('.x-grid3')
-  if(tableEl.length) {
-      tableEl = tableEl[0]
-      let titleEl = document.createElement('div')
-      titleEl.innerText = 'Max Autolytics : Loading'
-      titleEl.style.fontSize = '1.25em'
-      titleEl.style.color = 'white'
-      titleEl.style.fontWeight = '600'
-      titleEl.style.backgroundColor = 'hsl(220, 100%, 60%)'
-      titleEl.style.padding = '1em'
-      titleEl.style.marginBottom = '5px'
-      titleEl.style.textAlign = 'center'
-      titleEl.id = 'new-borderEl-select-framework-title'
-      tableEl.insertBefore(titleEl, tableEl.firstChild)
-  }
+//   let tableEl = document.querySelectorAll('.x-grid3')
+//   if(tableEl.length) {
+//       tableEl = tableEl[0]
+//       let titleEl = document.createElement('div')
+//       titleEl.innerText = 'Max Autolytics : Loading'
+//       titleEl.style.fontSize = '1.25em'
+//       titleEl.style.color = 'white'
+//       titleEl.style.fontWeight = '600'
+//       titleEl.style.backgroundColor = 'hsl(220, 100%, 60%)'
+//       titleEl.style.padding = '1em'
+//       titleEl.style.marginBottom = '5px'
+//       titleEl.style.textAlign = 'center'
+//       titleEl.id = 'new-borderEl-select-framework-title'
+//       tableEl.insertBefore(titleEl, tableEl.firstChild)
+//   }
   
-  btn.stopPropagation();
-  btn.target.removeEventListener('click', e => e)
-  btn.target.style.backgroundColor = '#ccc'
-  btn.target.style.border = '1px dashed #999'
-  btn.target.style.cursor = 'default'
-  btn.target.style.pointerEvents = 'none'
-  btn.target.style.opacity = '0.7'
-  const data = btn.target.parentElement.parentElement.parentElement.children[0];
+//   btn.stopPropagation();
+//   btn.target.removeEventListener('click', e => e)
+//   btn.target.style.backgroundColor = '#ccc'
+//   btn.target.style.border = '1px dashed #999'
+//   btn.target.style.cursor = 'default'
+//   btn.target.style.pointerEvents = 'none'
+//   btn.target.style.opacity = '0.7'
+//   const data = btn.target.parentElement.parentElement.parentElement.children[0];
   
-  // this is the elements INSIDE the <tr> element
-  let children = data.children[0].children[0].children;
+//   // this is the elements INSIDE the <tr> element
+//   let children = data.children[0].children[0].children;
   
-  children = Array.from(children);
-  children = children.map((child) => {
-      let subChildren = child.children[0].children
-      subChildren = Array.from(subChildren)
-      return subChildren.map((subChild) => subChild)
+//   children = Array.from(children);
+//   children = children.map((child) => {
+//       let subChildren = child.children[0].children
+//       subChildren = Array.from(subChildren)
+//       return subChildren.map((subChild) => subChild)
 
-  }).flat()
+//   }).flat()
 
-  Array.from(children).filter(e => e?.className.includes('ColumnField')).forEach((child, index) => {
-      let newChildren = Array.from(child?.children)
-      if(newChildren.length) {
-          try{
-              let subChildren = newChildren[0]?.children[0]?.children
-              Array.from(subChildren).forEach(subChild => {
-                  if(subChild.children.length > 1){
-                      try{
-                          let label = subChild.children[0]?.innerText
-                          let value = subChild.children[1]?.innerText
-                          if(label === 'VIN:'){
-                              fetch('https://www2.vauto.com/Va/Inventory/InventoryData.ashx?QuickSearch=' + value + "&gridSrcName=inventoryDetail&IsExactWordMatch=false&HistoricalDaySpan=60", {
-                                  "headers": {
-                                      "accept": "application/json, text/javascript, */*; q=0.01",
-                                      "accept-language": "en-US,en;q=0.9",
-                                      "content-type": "application/json; charset=UTF-8",
-                                      "sec-fetch-dest": "empty",
-                                      "sec-fetch-mode": "cors",
-                                      "sec-fetch-site": "same-origin"
-                                  },
-                                  "referrer": "https://www2.vauto.com/Va/Inventory/Inventory.aspx",
-                                  "referrerPolicy": "strict-origin-when-cross-origin",
-                                  ":path": "/Va/Inventory/InventoryData.ashx",
-                                  ":scheme": "https",
-                                  ":authority": "www2.vauto.com",
-                                  "method": "POST",
-                              }).then(e => e.text()).then(e => {
-                                  let obj = e.replace(/\\n/g, ' ')
-                                  obj = obj.replace(/new Date\((\d+)\)/g, '$1')
-                                  obj = obj.replace(/\\\\\",\\\"/g, "\",\"")
-                                  obj = obj.replace(/\\\",\"/g, "\",\"")
-                                  obj = obj.replace(/\+/g, ' ')
-                                  obj = obj.replace(/\\\ /g, ' ')
-                                  console.log(obj)
-                                  obj = JSON.parse(obj)
-                                  if(obj.rows.length === 0){
-                                      if(document.querySelectorAll('#new-borderEl-select-framework') && document.querySelectorAll('#new-borderEl-select-framework').length > 0){
-                                          document.querySelectorAll('#new-borderEl-select-framework').forEach((element) => {
-                                              element.remove();
-                                          });
-                                      }
-                                      document.getElementById('new-borderEl-select-framework-title').innerText = 'Max Autolytics : There was an error. Do you have the "Left Inventory" filter selected?'
-                                      document.getElementById('new-borderEl-select-framework-title').style.backgroundColor = 'hsl(0, 100%, 60%)'
-                                  }
-                                  let returnObj = {}
-                                  console.log(obj.rows)
-                                  obj.columns.forEach((column, index) => {
-                                      returnObj[column] = obj.rows[0][index]
-                                  })
-                                  return returnObj
-                              }).then(e => {
-                                  document.getElementById('new-borderEl-select-framework-title').innerText = 'Max Autolytics : ' + e['VehicleTitle']
-                                  // document.getElementById('menu_mauto_lytics').remove()
-                                  // document.getElementById('max_auto_provisioner_options_container').classList.remove('enter')
-                                  // document.getElementById('max_auto_provisioner_options_container').classList.add('exit')
-                                  // setTimeout(() => {
-                                  //   document.getElementById('max_auto_provisioner_options_container').remove()
-                                  // }, 500)
-                                  let notes = ''
-                                  if(e['AppraisalCommmentRec'] != undefined){
-                                      try{
-                                          notes = e['AppraisalCommmentRec'] ? JSON.parse(e['AppraisalCommmentRec'])[0]?.comment : undefined
-                                      } catch(e){
-                                          try{
-                                              notes = e['AppraisalCommmentRec'].replace('[{"comment":"', '').replace('"}]', '')
-                                          } catch(e){
-                                              console.log(e)
-                                          }
-                                      }
-                                  }
-                                  let v_initial_carg_h = ''
-                                  let v_initial_carg_level = ''
-                                  let v_initial_mmr = ''
-                                  let v_msrp = ''
-                                  let splitNotes = notes?.split(' ')?.map(e => e)
-                                  let v_initialCargurusSuggestedRange = [0,0]
-                                  let v_imv = ''
-                                  if(splitNotes){
-                                      let foundCarg = false
-                                      splitNotes.forEach((note, index) => {
-                                          if(note.toUpperCase() === 'MSRP'){
-                                              v_msrp = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                          }
-                                          if(note.toUpperCase() === 'MMR'){
-                                              v_initial_mmr = splitNotes[index + 1]
-                                          }
-                                          if(note.toUpperCase() === 'GR' || note.toUpperCase() === 'GREAT'){
-                                              if(foundCarg){
-                                                  v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                              } else {
-                                                v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                                foundCarg = true
-                                              }
-                                              v_initial_carg_h = splitNotes[index + 1]
-                                              v_initial_carg_level = 'greatPrice'
-                                          }
-                                          if(note.toUpperCase() === 'G' || note.toUpperCase() === 'GOOD'){
-                                              if(foundCarg){
-                                                  v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                              } else {
-                                                v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                                foundCarg = true
-                                              }
-                                              v_initial_carg_h = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                              v_initial_carg_level = 'goodPrice'
-                                          }
-                                          if(note.toUpperCase() === 'F' || note.toUpperCase() === 'FAIR'){
-                                              if(foundCarg){
-                                                  v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                              } else {
-                                                v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                                foundCarg = true
-                                              }
-                                              v_initial_carg_h = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                              v_initial_carg_level = 'fairPrice'
-                                          }
-                                          if(note.toUpperCase() === 'IMV'){
-                                              if(foundCarg){
-                                                  v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                              } else {
-                                                v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                                foundCarg = true
-                                              }
-                                              v_initial_carg_h = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                              v_initial_carg_level = 'fairPrice'
-                                            }
-                                          if(note.toUpperCase() === 'H' || note.toUpperCase() === 'HIGH'){
-                                              if(foundCarg){
-                                                  v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                              } else {
-                                                v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                                foundCarg = true
-                                              }
-                                              v_initial_carg_h = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                              v_initial_carg_level = 'highPrice'
-                                          }
-                                          if(note.toUpperCase() === 'OP' || note.toUpperCase() === 'OVERPRICED'){
-                                              if(foundCarg){
-                                                  v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                              } else {
-                                                v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                                foundCarg = true
-                                              }
-                                              v_initial_carg_h = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
-                                              v_initial_carg_level = 'overPrice'
-                                          }
-                                          if(note.toUpperCase() === 'IMV'){
-                                              v_imv = splitNotes[index + 1]
-                                          }
-                                      })
-                                  }
-                                  if(parseInt(v_initialCargurusSuggestedRange[0]) > parseInt(v_initialCargurusSuggestedRange[1])){
-                                      let temp = v_initialCargurusSuggestedRange[0]
-                                      v_initialCargurusSuggestedRange[0] = v_initialCargurusSuggestedRange[1]
-                                      v_initialCargurusSuggestedRange[1] = temp
-                                  }
-                                  let details = {
-                                      vAutoId: e['Id'],
-                                      v_stock_no: e['StockNumber'],
-                                      v_miles: e['Odometer'],
-                                      v_vehicle: e['VehicleTitle']?.toUpperCase(),
-                                      v_vin_no: e['Vin'],
-                                      v_source: e['VehicleSource'],
-                                      v_zip: e['AppraisedPostalCode'],
-                                      v_is_certified: e['IsCertified'] === 1 ? true : false,
-                                      v_notes: notes,
-                                      v_days: e['DaysInInventory'],
-                                      v_final_acv: e['TotalCost'],
-                                      v_acv: e['AppraisedValue'],
-                                      v_final_mmr: e['Manheim_Wholesale'],
-                                      v_start_price: e['InitialPendingPrice'],
-                                      v_sell_price: e['ListPrice'],
-                                      v_market_percent: e['EffectivePercentOfMarket'] ? Math.round(e['EffectivePercentOfMarket'] * 100) : undefined,
-                                      v_initial_carg_h,
-                                      v_initial_carg_level,
-                                      v_initial_mmr,
-                                      v_msrp,
-                                      v_imv,
-                                      type: 'sale',
-                                      v_initialCargurusSuggestedRange,
-                                  }   
-                                  console.log(details)
-                                  chrome.runtime.sendMessage({ type: 'gathered-metrics-data', data: details})
-                                  btn.target.addEventListener('click', getSaleDetail)
-                                  btn.target.style.backgroundColor = 'transparent'
-                                  btn.target.style.border = '1px solid #000'
-                                  btn.target.style.cursor = 'pointer'
-                                  btn.target.style.pointerEvents = 'all'
-                                  btn.target.style.opacity = '1'
-                              })
-                          }
-                      } catch(e) {
-                          console.log(e)
-                          if(document.querySelectorAll('#new-borderEl-select-framework') && document.querySelectorAll('#new-borderEl-select-framework').length > 0){
-                              document.querySelectorAll('#new-borderEl-select-framework').forEach((element) => {
-                                  element.remove();
-                              });
-                          }
-                          document.getElementById('new-borderEl-select-framework-title').innerText = 'Max Autolytics : There was an error. Do you have the "Left Inventory" filter selected?'
-                          btn.target.addEventListener('click', getSaleDetail)
-                          btn.target.style.backgroundColor = 'transparent'
-                          btn.target.style.border = '1px solid #000'
-                          btn.target.style.cursor = 'pointer'
-                          btn.target.style.pointerEvents = 'all'
-                          btn.target.style.opacity = '1'
-                      }
-                  }
-              })
-          }catch(e){
-              console.log(e)
-          }
-      }
-  })
-}
+//   Array.from(children).filter(e => e?.className.includes('ColumnField')).forEach((child, index) => {
+//       let newChildren = Array.from(child?.children)
+//       if(newChildren.length) {
+//           try{
+//               let subChildren = newChildren[0]?.children[0]?.children
+//               Array.from(subChildren).forEach(subChild => {
+//                   if(subChild.children.length > 1){
+//                       try{
+//                           let label = subChild.children[0]?.innerText
+//                           let value = subChild.children[1]?.innerText
+//                           if(label === 'VIN:'){
+//                               fetch('https://www2.vauto.com/Va/Inventory/InventoryData.ashx?QuickSearch=' + value + "&gridSrcName=inventoryDetail&IsExactWordMatch=false&HistoricalDaySpan=60", {
+//                                   "headers": {
+//                                       "accept": "application/json, text/javascript, */*; q=0.01",
+//                                       "accept-language": "en-US,en;q=0.9",
+//                                       "content-type": "application/json; charset=UTF-8",
+//                                       "sec-fetch-dest": "empty",
+//                                       "sec-fetch-mode": "cors",
+//                                       "sec-fetch-site": "same-origin"
+//                                   },
+//                                   "referrer": "https://www2.vauto.com/Va/Inventory/Inventory.aspx",
+//                                   "referrerPolicy": "strict-origin-when-cross-origin",
+//                                   ":path": "/Va/Inventory/InventoryData.ashx",
+//                                   ":scheme": "https",
+//                                   ":authority": "www2.vauto.com",
+//                                   "method": "POST",
+//                               }).then(e => e.text()).then(e => {
+//                                   let obj = e.replace(/\\n/g, ' ')
+//                                   obj = obj.replace(/new Date\((\d+)\)/g, '$1')
+//                                   obj = obj.replace(/\\\\\",\\\"/g, "\",\"")
+//                                   obj = obj.replace(/\\\",\"/g, "\",\"")
+//                                   obj = obj.replace(/\+/g, ' ')
+//                                   obj = obj.replace(/\\\ /g, ' ')
+//                                   console.log(obj)
+//                                   obj = JSON.parse(obj)
+//                                   if(obj.rows.length === 0){
+//                                       if(document.querySelectorAll('#new-borderEl-select-framework') && document.querySelectorAll('#new-borderEl-select-framework').length > 0){
+//                                           document.querySelectorAll('#new-borderEl-select-framework').forEach((element) => {
+//                                               element.remove();
+//                                           });
+//                                       }
+//                                       document.getElementById('new-borderEl-select-framework-title').innerText = 'Max Autolytics : There was an error. Do you have the "Left Inventory" filter selected?'
+//                                       document.getElementById('new-borderEl-select-framework-title').style.backgroundColor = 'hsl(0, 100%, 60%)'
+//                                   }
+//                                   let returnObj = {}
+//                                   console.log(obj.rows)
+//                                   obj.columns.forEach((column, index) => {
+//                                       returnObj[column] = obj.rows[0][index]
+//                                   })
+//                                   return returnObj
+//                               }).then(e => {
+//                                   document.getElementById('new-borderEl-select-framework-title').innerText = 'Max Autolytics : ' + e['VehicleTitle']
+//                                   // document.getElementById('menu_mauto_lytics').remove()
+//                                   // document.getElementById('max_auto_provisioner_options_container').classList.remove('enter')
+//                                   // document.getElementById('max_auto_provisioner_options_container').classList.add('exit')
+//                                   // setTimeout(() => {
+//                                   //   document.getElementById('max_auto_provisioner_options_container').remove()
+//                                   // }, 500)
+//                                   let notes = ''
+//                                   if(e['AppraisalCommmentRec'] != undefined){
+//                                       try{
+//                                           notes = e['AppraisalCommmentRec'] ? JSON.parse(e['AppraisalCommmentRec'])[0]?.comment : undefined
+//                                       } catch(e){
+//                                           try{
+//                                               notes = e['AppraisalCommmentRec'].replace('[{"comment":"', '').replace('"}]', '')
+//                                           } catch(e){
+//                                               console.log(e)
+//                                           }
+//                                       }
+//                                   }
+//                                   let v_initial_carg_h = ''
+//                                   let v_initial_carg_level = ''
+//                                   let v_initial_mmr = ''
+//                                   let v_msrp = ''
+//                                   let splitNotes = notes?.split(' ')?.map(e => e)
+//                                   let v_initialCargurusSuggestedRange = [0,0]
+//                                   let v_imv = ''
+//                                   if(splitNotes){
+//                                       let foundCarg = false
+//                                       splitNotes.forEach((note, index) => {
+//                                           if(note.toUpperCase() === 'MSRP'){
+//                                               v_msrp = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                           }
+//                                           if(note.toUpperCase() === 'MMR'){
+//                                               v_initial_mmr = splitNotes[index + 1]
+//                                           }
+//                                           if(note.toUpperCase() === 'GR' || note.toUpperCase() === 'GREAT'){
+//                                               if(foundCarg){
+//                                                   v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                               } else {
+//                                                 v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                                 foundCarg = true
+//                                               }
+//                                               v_initial_carg_h = splitNotes[index + 1]
+//                                               v_initial_carg_level = 'greatPrice'
+//                                           }
+//                                           if(note.toUpperCase() === 'G' || note.toUpperCase() === 'GOOD'){
+//                                               if(foundCarg){
+//                                                   v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                               } else {
+//                                                 v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                                 foundCarg = true
+//                                               }
+//                                               v_initial_carg_h = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                               v_initial_carg_level = 'goodPrice'
+//                                           }
+//                                           if(note.toUpperCase() === 'F' || note.toUpperCase() === 'FAIR'){
+//                                               if(foundCarg){
+//                                                   v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                               } else {
+//                                                 v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                                 foundCarg = true
+//                                               }
+//                                               v_initial_carg_h = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                               v_initial_carg_level = 'fairPrice'
+//                                           }
+//                                           if(note.toUpperCase() === 'IMV'){
+//                                               if(foundCarg){
+//                                                   v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                               } else {
+//                                                 v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                                 foundCarg = true
+//                                               }
+//                                               v_initial_carg_h = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                               v_initial_carg_level = 'fairPrice'
+//                                             }
+//                                           if(note.toUpperCase() === 'H' || note.toUpperCase() === 'HIGH'){
+//                                               if(foundCarg){
+//                                                   v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                               } else {
+//                                                 v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                                 foundCarg = true
+//                                               }
+//                                               v_initial_carg_h = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                               v_initial_carg_level = 'highPrice'
+//                                           }
+//                                           if(note.toUpperCase() === 'OP' || note.toUpperCase() === 'OVERPRICED'){
+//                                               if(foundCarg){
+//                                                   v_initialCargurusSuggestedRange[1] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                               } else {
+//                                                 v_initialCargurusSuggestedRange[0] = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                                 foundCarg = true
+//                                               }
+//                                               v_initial_carg_h = splitNotes[index + 1]?.replace(/[^\d-]/g, '')
+//                                               v_initial_carg_level = 'overPrice'
+//                                           }
+//                                           if(note.toUpperCase() === 'IMV'){
+//                                               v_imv = splitNotes[index + 1]
+//                                           }
+//                                       })
+//                                   }
+//                                   if(parseInt(v_initialCargurusSuggestedRange[0]) > parseInt(v_initialCargurusSuggestedRange[1])){
+//                                       let temp = v_initialCargurusSuggestedRange[0]
+//                                       v_initialCargurusSuggestedRange[0] = v_initialCargurusSuggestedRange[1]
+//                                       v_initialCargurusSuggestedRange[1] = temp
+//                                   }
+//                                   let details = {
+//                                       vAutoId: e['Id'],
+//                                       v_stock_no: e['StockNumber'],
+//                                       v_miles: e['Odometer'],
+//                                       v_vehicle: e['VehicleTitle']?.toUpperCase(),
+//                                       v_vin_no: e['Vin'],
+//                                       v_source: e['VehicleSource'],
+//                                       v_zip: e['AppraisedPostalCode'],
+//                                       v_is_certified: e['IsCertified'] === 1 ? true : false,
+//                                       v_notes: notes,
+//                                       v_days: e['DaysInInventory'],
+//                                       v_final_acv: e['TotalCost'],
+//                                       v_acv: e['AppraisedValue'],
+//                                       v_final_mmr: e['Manheim_Wholesale'],
+//                                       v_start_price: e['InitialPendingPrice'],
+//                                       v_sell_price: e['ListPrice'],
+//                                       v_market_percent: e['EffectivePercentOfMarket'] ? Math.round(e['EffectivePercentOfMarket'] * 100) : undefined,
+//                                       v_initial_carg_h,
+//                                       v_initial_carg_level,
+//                                       v_initial_mmr,
+//                                       v_msrp,
+//                                       v_imv,
+//                                       type: 'sale',
+//                                       v_initialCargurusSuggestedRange,
+//                                   }   
+//                                   console.log(details)
+//                                   chrome.runtime.sendMessage({ type: 'gathered-metrics-data', data: details})
+//                                   btn.target.addEventListener('click', getSaleDetail)
+//                                   btn.target.style.backgroundColor = 'transparent'
+//                                   btn.target.style.border = '1px solid #000'
+//                                   btn.target.style.cursor = 'pointer'
+//                                   btn.target.style.pointerEvents = 'all'
+//                                   btn.target.style.opacity = '1'
+//                               })
+//                           }
+//                       } catch(e) {
+//                           console.log(e)
+//                           if(document.querySelectorAll('#new-borderEl-select-framework') && document.querySelectorAll('#new-borderEl-select-framework').length > 0){
+//                               document.querySelectorAll('#new-borderEl-select-framework').forEach((element) => {
+//                                   element.remove();
+//                               });
+//                           }
+//                           document.getElementById('new-borderEl-select-framework-title').innerText = 'Max Autolytics : There was an error. Do you have the "Left Inventory" filter selected?'
+//                           btn.target.addEventListener('click', getSaleDetail)
+//                           btn.target.style.backgroundColor = 'transparent'
+//                           btn.target.style.border = '1px solid #000'
+//                           btn.target.style.cursor = 'pointer'
+//                           btn.target.style.pointerEvents = 'all'
+//                           btn.target.style.opacity = '1'
+//                       }
+//                   }
+//               })
+//           }catch(e){
+//               console.log(e)
+//           }
+//       }
+//   })
+// }
