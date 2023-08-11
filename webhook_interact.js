@@ -160,6 +160,15 @@ async function getAllSales(){
         row.forEach((column, index) => {
             obj[keys[index]] = column
         })
+        let source = obj['VehicleSource']
+        if(obj.InventoryTags){
+          if(obj.InventoryTags.includes('source-')){
+            if(obj.InventoryTags.split(',')[0].split('source-').length > 1){
+                source = obj.InventoryTags.split(',')[0].split('source-')[1].replace('-', ' ').toUpperCase()
+            }
+          }
+        }
+        obj['VehicleSource'] = source
         returnObjs[index] = obj
     })
     return returnObjs
