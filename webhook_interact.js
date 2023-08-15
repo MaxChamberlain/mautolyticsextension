@@ -142,14 +142,16 @@ async function getAllSales(){
     "mode": "cors",
     "credentials": "include"
   }).then(e => e.text()).then(e => {
-    let obj = e.replace(/\\n/g, '')
+    const keyFinderRegEX = /([{,]\s*)(\S+)\s*(:)/mg;
+    let obj = e//.replace(keyFinderRegEX, '$1"$2"$3')
+    // let obj = e.replace(/\\n/g, '')
     obj = obj.replace(/new Date\((\d+)\)/g, '$1')
-    obj = obj.replace(/\\\\\",\\\"/g, "\",\"")
-    obj = obj.replace(/\\\",\"/g, "\",\"")
-    obj = obj.replace(/\\([a-zA-Z0-9\s])/g, ' $1')
-    obj = obj.replace('+\\', '')
-    console.log(obj)
+    // obj = obj.replace(/\\\\\",\\\"/g, "\",\"")
+    // obj = obj.replace(/\\\",\"/g, "\",\"")
+    // obj = obj.replace(/\\([a-zA-Z0-9\s])/g, ' $1')
+    // obj = obj.replace('+\\', '')
     obj = JSON.parse(obj)
+    console.log(obj)
     let returnObjs = []
     let keys = []
     obj.columns.forEach((column, index) => {
@@ -170,6 +172,7 @@ async function getAllSales(){
         }
         obj['VehicleSource'] = source
         returnObjs[index] = obj
+        if(obj['VehicleSource'] !== source || !source) console.log(obj['VehicleSource'], source, obj['Vin'])
     })
     return returnObjs
   }).then(e => {
