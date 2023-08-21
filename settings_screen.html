@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <script src="settings.js"></script>
+    <style>
+      html {
+        padding: 0;
+        background: none;
+      }
+      body {
+        width: 450px;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        row-gap: 0.5em;
+        color: black;
+        background: rgb(255, 255, 255);
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 1) 11%,
+          rgba(250, 250, 255, 1) 30%,
+          rgba(255, 255, 255, 1) 52%,
+          rgba(250, 255, 255, 1) 76%,
+          rgba(255, 255, 255, 1) 100%
+        );
+      }
+      button {
+        color: black;
+        border: 1px solid #555;
+        background-color: white;
+        padding: 0.5em;
+        border-radius: 0.5em;
+        cursor: pointer;
+        font-size: 1.25em;
+        margin-bottom: 1em;
+      }
+      button:hover {
+        background-color: #aaa;
+      }
+      html,
+      body {
+        border-radius: 0.5em;
+      }
+      html {
+        background-color: transparent;
+      }
+      * {
+        animation: fade-slide-in 0.5s;
+        transition: all 0.25s;
+      }
+      @keyframes fade-slide-in {
+        0% {
+          opacity: 0;
+          transform: translateY(1em);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body style="padding: 0">
+    <div id="company-display">Settings</div>
+    <div id="settings-close">x</div>
+    <input
+      type="text"
+      id="server_url"
+      placeholder="Server Base URL"
+      style="width: 100%"
+    />
+    <input
+      type="text"
+      id="inventory_webhook"
+      placeholder="Inventory Webhook Endpoint"
+      style="width: 100%"
+    />
+    <button class="button" id="set_btn" style="width: 100%">Save</button>
+  </body>
+</html>

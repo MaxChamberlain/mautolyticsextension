@@ -1,1 +1,0 @@
-chrome.runtime.sendMessage({ type: 'gotten-cookie', data: document.cookie})

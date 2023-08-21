@@ -176,7 +176,7 @@ async function getAllSales(){
     })
     return returnObjs
   }).then(e => {
-    fetch('https://beta-max-autolytics-42e7b1f0061c.herokuapp.com/inventory/receive', {
+      fetch('https://beta-max-autolytics-42e7b1f0061c.herokuapp.com/webhook/inventory', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

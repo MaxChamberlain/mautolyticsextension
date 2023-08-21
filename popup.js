@@ -1,16 +1,22 @@
 var bgp = chrome.extension.getBackgroundPage()
 
 document.addEventListener('DOMContentLoaded', function () {
-    // var getAllbtn = document.getElementById("get_all");
-    // getAllbtn.addEventListener('click', startGetAll);
-    // var setAllbtn = document.getElementById("put_all");
-    // setAllbtn.addEventListener('click', startPutAll);
     var btadd = document.getElementById("get_btn");
     btadd.addEventListener('click', startScraper);
-    // var btinv = document.getElementById("inv_btn");
-    // btinv.addEventListener('click', startInvScraper);
     var btnput = document.getElementById("set_btn");
     btnput.addEventListener('click', putData);
+
+    var settingsbutton = document.getElementById("settings-trigger");
+    settingsbutton.addEventListener('click', function(){
+        document.getElementById('setting-container').style.display = 'block'
+        chrome.storage.local.get('MaxAutolyticsBaseUrl', function (result) {
+          console.log('res', result)
+          if (result && result.MaxAutolyticsBaseUrl) {
+            document.getElementById('server_url').value = result.MaxAutolyticsBaseUrl
+            document.getElementById('inventory_webhook').value = result.MaxAutolyticsInventoryWebhook
+          }
+        })
+    });
 
     document.querySelector('.has-data')?.addEventListener('click', () => {
         // clear local storage
@@ -25,51 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('set_btn').style.opacity = '60%'
         document.getElementById('status-box').classList.remove('has-data')
     })
-    // chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
-    //     let url = tabs[0].url;
-    //     url = url.split('?')[0]
-    //     let expectedUrls = [
-    //         "www2.vauto.com/Va/Inventory/", 
-    //         "localhost:5173/documents", 
-    //         "localhost:5173/inventory", 
-    //         "localhost:5173/list", 
-    //         "127.0.0.1:5173/documents", 
-    //         "127.0.0.1:5173/inventory", 
-    //         "127.0.0.1:5173/list", 
-    //         "maxautolytics.com/documents", 
-    //         "maxautolytics.com/inventory", 
-    //         "maxautolytics.com/list", 
-    //         "dealer-trk.netlify.app/documents",
-    //         "dealer-trk.netlify.app/inventory",
-    //         "dealer-trk.netlify.app/list",
-    //     ]
-    //     const matchingUrl = expectedUrls.some(e => {
-    //         return url.includes(e) || true
-    //     })
-    //     if (!matchingUrl) {
-    //         document.getElementById('status_title').innerText = 'Wrong page'
-    //         document.getElementById("get_btn").disabled = true;
-    //         document.getElementById('get_btn').style.opacity = '60%'
-    //         document.getElementById("inv_btn").disabled = true;
-    //         document.getElementById('inv_btn').style.opacity = '60%'
-    //         document.getElementById("set_btn").disabled = true;
-    //         document.getElementById('set_btn').style.opacity = '60%'
-    //         document.getElementById('status').innerText = "Make sure you're in either the VAuto Inventory page\nor the Max Autolytics \"list\" or \"inventory\" page"
-    //     }
-    // });
 })
-
-// chrome.storage.local.get('all_inventory', function (result) {
-//     console.log(result)
-//     if (result && result.all_inventory) {
-//         document.getElementById('status').innerText = 'Holding ' + result.all_inventory.length + ' vehicles'
-//         document.getElementById("get_all").disabled = false;
-//     } else {
-//         document.getElementById('status').innerText = 'No data'
-//         document.getElementById("set_btn").disabled = true;
-//         document.getElementById('set_btn').style.opacity = '60%'
-//     }
-// })
 
 chrome.storage.local.get('metrics', function (result) {
     if (result && result.metrics) {

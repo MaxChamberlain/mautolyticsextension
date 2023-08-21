@@ -1,6 +1,7 @@
 <html>
     <head>
-        <script src="popup.js"></script>
+      <script src="settings.js"></script>
+      <script src="popup.js"></script>
         <style>
             html{
                 padding: 0;
@@ -131,5 +132,22 @@
         <button class="button" id="set_btn" style="width: 100%;">
             Put Details
         </button>
+        <div style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: white; display: none;' id='setting-container'>
+          <div>Settings</div>
+          <div id="settings-close">x</div>
+          <input
+            type="text"
+            id="server_url"
+            placeholder="Server Base URL"
+            style="width: 100%"
+          />
+          <input
+            type="text"
+            id="inventory_webhook"
+            placeholder="Inventory Webhook Endpoint"
+            style="width: 100%"
+          />
+          <button class="button" id="set_btn" style="width: 100%">Save</button>
+        </div>
     </body>
 </html>

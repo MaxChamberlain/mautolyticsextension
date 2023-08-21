@@ -1,5 +1,6 @@
 chrome.runtime.onStartup.addListener(function() {
     chrome.storage.local.clear()
+    chrome.storage.local.set({ MaxAutolyticsBaseUrl: 'https://beta-max-autolytics-42e7b1f0061c.herokuapp.com' , MaxAutolyticsInventoryWebhookUrl: '/webhook/inventory' }, function() {})
 })
 
 // listen for messages from the content script
