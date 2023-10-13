@@ -131,14 +131,17 @@ async function getAllSales() {
       return returnObjs
     })
     .then((e) => {
-      fetch('http://localhost:9000/webhook/inventory', {
-        // fetch('https://beta-max-autolytics-42e7b1f0061c.herokuapp.com/webhook/inventory', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(e)
-      })
+      // fetch('http://localhost:9000/webhook/inventory', {
+      fetch(
+        'https://beta-max-autolytics-42e7b1f0061c.herokuapp.com/webhook/inventory',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(e)
+        }
+      )
     })
     .catch((e) => console.log(e))
     .finally((e) => {
