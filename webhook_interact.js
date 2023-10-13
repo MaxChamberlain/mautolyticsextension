@@ -118,7 +118,7 @@ async function getAllSales() {
             if (obj.InventoryTags.split(',')[0].split('source-').length > 1) {
               source = obj.InventoryTags.split(',')[0]
                 .split('source-')[1]
-                .replace('-', ' ')
+                .replace(/-/g, ' ')
                 .toUpperCase()
             }
           }
