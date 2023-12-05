@@ -131,10 +131,16 @@ async function getAllSales() {
       return returnObjs
     })
     .then((e) => {
-      // fetch('http://localhost:9000/webhook/inventory', {
-      fetch(
-        'https://beta-max-autolytics-42e7b1f0061c.herokuapp.com/webhook/inventory',
+      document.getElementById('mauto_send_btn').innerText =
+        'Sending data to database... This can take up to 5 minutes. Please do not refresh or leave the page.'
+      // return fetch('http://localhost:9000/webhook/inventory', {
+      // return fetch('http://localhost:9000/api/v2/webhook/inventory', {
+      return fetch(
+        'https://v3-max-autolytics-0c66f527a760.herokuapp.com/api/v2/webhook/inventory',
         {
+          // fetch(
+          //   'https://beta-max-autolytics-42e7b1f0061c.herokuapp.com/webhook/inventory',
+          //   {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -143,14 +149,49 @@ async function getAllSales() {
         }
       )
     })
-    .catch((e) => console.log(e))
-    .finally((e) => {
+    .then((e) => {
+      const data = e.text()
+      return data
+    })
+    .then(async (e) => {
+      let intervalId
+      intervalId = setInterval(() => {
+        fetch(
+          'https://v3-max-autolytics-0c66f527a760.herokuapp.com/api/v2/webhook/inventory?taskId=' +
+            e
+        ).then(async (x) => {
+          const data = await x.json()
+          const { taskId, status, isCompleted } = data
+          if (isCompleted) {
+            clearInterval(intervalId)
+            document
+              .getElementById('mauto_send_btn')
+              .addEventListener('click', getAllSales)
+            document.getElementById('mauto_send_btn').innerText = 'Done!'
+            document.getElementById('mauto_send_btn').style.cursor = 'pointer'
+            document.getElementById('mauto_send_btn').style.backgroundColor =
+              '#aaa'
+            setTimeout(() => {
+              document.getElementById('mauto_send_btn').innerText =
+                'Send Inventory Snapshot to Max Autolytics'
+            }, 5000)
+          } else {
+            document.getElementById('mauto_send_btn').innerText =
+              'Please do not refresh or leave the page: (' + status + ')'
+          }
+        })
+      }, 1000)
+    })
+    .catch((e) => {
+      console.log(e)
       document
         .getElementById('mauto_send_btn')
         .addEventListener('click', getAllSales)
-      document.getElementById('mauto_send_btn').innerText = 'Done!'
+      document.getElementById('mauto_send_btn').innerText =
+        'There was an error. Try Again'
       document.getElementById('mauto_send_btn').style.cursor = 'pointer'
-      document.getElementById('mauto_send_btn').style.backgroundColor = '#aaa'
+      document.getElementById('mauto_send_btn').style.backgroundColor =
+        '#ff9999'
       setTimeout(() => {
         document.getElementById('mauto_send_btn').innerText =
           'Send Inventory Snapshot to Max Autolytics'

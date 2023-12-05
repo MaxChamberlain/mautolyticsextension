@@ -387,7 +387,11 @@ if (
                             v_msrp,
                             v_imv,
                             type: 'sale',
-                            v_initialCargurusSuggestedRange
+                            v_initialCargurusSuggestedRange,
+                            v_make: e['Make'],
+                            v_model: e['Model'],
+                            v_year: e['ModelYear'],
+                            v_trim: e['Series']
                           }
                           console.log(details)
                           chrome.runtime.sendMessage({
