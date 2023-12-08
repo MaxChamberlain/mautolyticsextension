@@ -391,7 +391,8 @@ if (
                             v_make: e['Make'],
                             v_model: e['Model'],
                             v_year: e['ModelYear'],
-                            v_trim: e['Series']
+                            v_trim: e['Series'],
+                            logical_id: e['DealerLogicalId']
                           }
                           console.log(details)
                           chrome.runtime.sendMessage({
