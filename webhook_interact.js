@@ -10,15 +10,17 @@ function insertElements() {
   style.innerHTML = `
       .max_auto_provisioner_container {
         height: fit-content;
-        background: #ccc;
-        width: 100vw;
+        background: transparent;
+        width: 100%;
       }
       .max_auto_provisioner_options_container {
         display: flex;
         justify-content: flex-start;
         align-items: center;
         height: 100px;
+        background: transparent;
         padding: 16px;
+        width: 100%;
       }
   
       @keyframes fade-in {
@@ -50,30 +52,51 @@ function insertElements() {
       .hover-hover:first-child {
         transition: box-shadow 0.5s ease-in-out;
       }
+
+      .mauto_send_btn {
+        background-color: #3377FF !important; 
+        color: #fff;
+        font-weight: semibold;
+        background: white;
+        padding: 5px; 
+        width: calc(100% - 2.5rem); 
+        cursor: pointer; 
+        text-align: center; 
+        margin: 0.5rem; 
+        border-radius: 16px;
+        pointer-events: all;
+        transition: background-color 0.1s ease-in-out;
+      }
+      .mauto_send_btn:hover {
+        background-color: #335599 !important;
+      }
+
+      #viewport {
+        margin-top: 160px;
+      }
+      body{
+        background-color: #f8f9fb;
+      }
     `
   document.head.appendChild(style)
   let container = document.createElement('div')
   container.classList.add('max_auto_provisioner_container')
-  container.innerHTML = `
-      <div style='background-color: #aaa; box-shadow: 0 0 5px 2px rgba(0,0,0,0.2); padding: 10px; width: fit-content; color: white; cursor: pointer;' id='mauto_send_btn'>
-        Send Inventory Snapshot to Max Autolytics
-      </div>
-    `
-  document.getElementById('header2').style.marginTop = '70px'
-  document.body.insertAdjacentElement('afterbegin', container)
-  document
-    .getElementById('mauto_send_btn')
-    .addEventListener('click', getAllSales)
+  const sendButton = document.createElement('div')
+  sendButton.classList.add('mauto_send_btn')
+  sendButton.innerText = 'Send Inventory Snapshot to Max Autolytics'
+  sendButton.id = 'mauto_send_btn'
+  sendButton.addEventListener('click', getAllSales)
+  container.appendChild(sendButton)
+  document.querySelector('#menu2').appendChild(container)
 }
 
-async function getAllSales() {
-  document
-    .getElementById('mauto_send_btn')
-    .removeEventListener('click', getAllSales)
-  document.getElementById('mauto_send_btn').innerText = 'Fetching data...'
-  document.getElementById('mauto_send_btn').style.cursor = 'default'
-  document.getElementById('mauto_send_btn').style.backgroundColor =
-    'hsl(220, 50%, 40%)'
+async function getAllSales(element) {
+  element.target.removeEventListener('click', getAllSales)
+  element.target.innerText = 'Fetching data...'
+  element.target.style.cursor = 'default'
+  element.target.style.backgroundColor = 'hsl(220, 50%, 40%)'
+  element.target.style.width = '100%'
+  element.target.style.pointerEvents = 'none'
   fetch('https://www2.vauto.com/Va/Inventory/InventoryData.ashx', {
     headers: {
       accept: '*/*',
@@ -131,7 +154,7 @@ async function getAllSales() {
       return returnObjs
     })
     .then((e) => {
-      document.getElementById('mauto_send_btn').innerText =
+      element.target.innerText =
         'Sending data to database... This can take up to 5 minutes. Please do not refresh or leave the page.'
       // return fetch('http://localhost:9000/webhook/inventory', {
       // return fetch('http://localhost:9000/api/v2/webhook/inventory', {
@@ -159,9 +182,10 @@ async function getAllSales() {
         fetch(
           'https://v3-max-autolytics-0c66f527a760.herokuapp.com/api/v2/webhook/inventory?taskId=' +
             e
+          // 'http://localhost:9000/api/v2/webhook/inventory?taskId=' + e
         ).then(async (x) => {
           const data = await x.json()
-          const { taskId, status, isCompleted } = data
+          const { taskId, batchCurrent, batchTotal, isCompleted } = data
           if (isCompleted) {
             clearInterval(intervalId)
             document
@@ -170,31 +194,50 @@ async function getAllSales() {
             document.getElementById('mauto_send_btn').innerText = 'Done!'
             document.getElementById('mauto_send_btn').style.cursor = 'pointer'
             document.getElementById('mauto_send_btn').style.backgroundColor =
-              '#aaa'
+              '#99ff99'
+            document.getElementById('mauto_send_btn').style.pointerEvents =
+              'all'
             setTimeout(() => {
               document.getElementById('mauto_send_btn').innerText =
                 'Send Inventory Snapshot to Max Autolytics'
+              document.getElementById('mauto_send_btn').style.backgroundColor =
+                '#ccc'
             }, 5000)
           } else {
-            document.getElementById('mauto_send_btn').innerText =
-              'Please do not refresh or leave the page: (' + status + ')'
+            document.getElementById('mauto_send_btn').style.backgroundColor =
+              'hsl(220, 50%, 40%)'
+            document.getElementById('mauto_send_btn').style.cursor = 'default'
+            document
+              .getElementById('mauto_send_btn')
+              .removeEventListener('click', getAllSales)
+            document.getElementById('mauto_send_btn').style.pointerEvents =
+              'none'
+            document.getElementById('mauto_send_btn').innerHTML = `
+              Sending data to database... This can take up to 5 minutes. Please do not refresh or leave the page.
+              <div style='width: 100%; height: 20px; background-color: #aaa; border-radius: 16px;'>
+                <div style='width: ${Math.floor(
+                  (batchCurrent / batchTotal) * 100
+                )}%; height: 20px; background-color: hsl(220, 50%, 40%); border-radius: 16px;'></div>
+              </div>
+              <div style='width: 100%; height: 20px; text-align:center;'>
+              ${batchCurrent}/${batchTotal} - ${Math.floor(
+              (batchCurrent / batchTotal) * 100
+            )} % complete
+              </div>
+            `
           }
         })
       }, 1000)
     })
     .catch((e) => {
       console.log(e)
-      document
-        .getElementById('mauto_send_btn')
-        .addEventListener('click', getAllSales)
-      document.getElementById('mauto_send_btn').innerText =
-        'There was an error. Try Again'
-      document.getElementById('mauto_send_btn').style.cursor = 'pointer'
-      document.getElementById('mauto_send_btn').style.backgroundColor =
-        '#ff9999'
+      element.target.addEventListener('click', getAllSales)
+      element.target.innerText = 'There was an error. Try Again'
+      element.target.style.cursor = 'pointer'
+      element.target.style.backgroundColor = '#ff9999'
+      element.target.style.pointerEvents = 'all'
       setTimeout(() => {
-        document.getElementById('mauto_send_btn').innerText =
-          'Send Inventory Snapshot to Max Autolytics'
+        element.target.innerText = 'Send Inventory Snapshot to Max Autolytics'
       }, 5000)
     })
 }

@@ -178,6 +178,7 @@ if (
                           returnObj.AppraisalCommmentRec = JSON.parse(
                             returnObj.AppraisalCommmentRec
                           )
+                          console.log(returnObj)
                           return returnObj
                         })
                         .then((e) => {
