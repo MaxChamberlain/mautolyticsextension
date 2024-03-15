@@ -1,133 +1,132 @@
 chrome.runtime.onStartup.addListener(function () {
-  chrome.storage.local.clear()
+  chrome.storage.local.clear();
   chrome.storage.local.set(
     {
       MaxAutolyticsBaseUrl:
-        'https://beta-max-autolytics-42e7b1f0061c.herokuapp.com'
+        "https://beta-max-autolytics-42e7b1f0061c.herokuapp.com",
     },
     function () {}
-  )
+  );
   chrome.storage.local.set(
-    { MaxAutolyticsInventoryWebhookUrl: '/webhook/inventory' },
+    { MaxAutolyticsInventoryWebhookUrl: "/webhook/inventory" },
     function () {}
-  )
-})
+  );
+});
 
 // listen for messages from the content script
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  console.log(request, sender, sendResponse)
+  console.log(request, sender, sendResponse);
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    let currentTab = tabs[0].id
-    if (request.type === 'get-all') {
+    let currentTab = tabs[0].id;
+    if (request.type === "get-all") {
       chrome.scripting.executeScript({
         target: { tabId: currentTab },
-        files: ['all_content_script.js']
-      })
+        files: ["all_content_script.js"],
+      });
     }
-    if (request.type === 'grab') {
+    if (request.type === "grab") {
       chrome.scripting.executeScript({
         target: { tabId: currentTab },
-        files: ['content_script.js']
-      })
+        files: ["content_script.js"],
+      });
     }
-    if (request.type === 'grab-inventory') {
+    if (request.type === "grab-inventory") {
       chrome.scripting.executeScript({
         target: { tabId: currentTab },
-        files: ['content_intentory_script.js']
-      })
+        files: ["content_intentory_script.js"],
+      });
     }
-    if (request.type === 'gathered-metrics-data') {
-      chrome.storage.local.set({ wasWritten: true }, function () {})
+    if (request.type === "gathered-metrics-data") {
+      chrome.storage.local.set({ wasWritten: true }, function () {});
       chrome.scripting.executeScript({
         target: { tabId: currentTab },
-        files: ['undo_content_script.js']
-      })
+        files: ["undo_content_script.js"],
+      });
       chrome.storage.local.set({ metrics: request.data }, function () {
-        console.log('Metrics data saved')
-      })
+        console.log("Metrics data saved");
+      });
     }
-    if (request.type === 'gathered-all-data') {
-      chrome.storage.local.set({ wasWritten: true }, function () {})
+    if (request.type === "gathered-all-data") {
+      chrome.storage.local.set({ wasWritten: true }, function () {});
       chrome.storage.local.set({ all_inventory: request.data }, function () {
-        console.log('all data saved')
-      })
+        console.log("all data saved");
+      });
     }
-    if (request.type === 'cancel-scrape') {
+    if (request.type === "cancel-scrape") {
       chrome.scripting.executeScript({
         target: { tabId: currentTab },
-        files: ['undo_content_script.js']
-      })
+        files: ["undo_content_script.js"],
+      });
     }
-    if (request.type === 'put-data') {
-      console.log('putting data')
-      chrome.storage.local.get('metrics', (data) => {
+    if (request.type === "put-data") {
+      console.log("putting data");
+      chrome.storage.local.get("metrics", (data) => {
         if (data) {
-          console.log(data.metrics)
+          console.log(data.metrics);
           chrome.scripting.executeScript({
             target: { tabId: currentTab },
-            files: ['put_data_script.js']
-          })
+            files: ["put_data_script.js"],
+          });
         } else {
-          console.log('No data')
+          console.log("No data");
         }
-      })
+      });
     }
-    if (request.type === 'put-all') {
-      console.log('putting data')
-      chrome.storage.local.get('all_inventory', (data) => {
+    if (request.type === "put-all") {
+      console.log("putting data");
+      chrome.storage.local.get("all_inventory", (data) => {
         if (data) {
-          console.log(data.all_inventory)
+          console.log(data.all_inventory);
           chrome.scripting.executeScript({
             target: { tabId: currentTab },
-            files: ['put_all_script.js']
-          })
+            files: ["put_all_script.js"],
+          });
         } else {
-          console.log('No data')
+          console.log("No data");
         }
-      })
+      });
     }
-    if (request.type === 'store-name') {
+    if (request.type === "store-name") {
       chrome.storage.local.set({ store: request.data }, function () {
-        console.log('store saved')
-      })
+        console.log("store saved");
+      });
     }
-    if (request.type === 'get-image-url') {
+    if (request.type === "get-image-url") {
       chrome.runtime.sendMessage({
-        type: 'receive-logo-image',
-        data: chrome.runtime.getURL('logo.png')
-      })
+        type: "receive-logo-image",
+        data: chrome.runtime.getURL("logo.png"),
+      });
     }
-  })
-})
+  });
+});
 
 chrome.tabs.onActivated.addListener(function (activeInfo) {
-  //get current url
   chrome.tabs.get(activeInfo.tabId, function (tab) {
-    var url = tab.url
-    if (!url.includes('vauto.com')) {
-      chrome.storage.local.remove('store', function () {})
+    var url = tab.url;
+    if (!url.includes("vauto.app")) {
+      chrome.storage.local.remove("store", function () {});
     }
-    if (url.includes('vauto.com') || url.includes('maxautolytics.com')) {
+    if (url.includes("vauto.app") || url.includes("maxautolytics.app")) {
       chrome.scripting.executeScript({
         target: { tabId: activeInfo.tabId },
-        files: ['undo_content_script.js', 'webhook_interact.js']
-      })
+        files: ["undo_content_script.js", "webhook_interact.js"],
+      });
     }
-  })
-})
+  });
+});
 
 chrome.tabs.onUpdated.addListener(function (activeInfo) {
   //get current url
   chrome.tabs.get(activeInfo.tabId, function (tab) {
-    var url = tab.url
-    if (!url.includes('vauto.com')) {
-      chrome.storage.local.remove('store', function () {})
+    var url = tab.url;
+    if (!url.includes("vauto.app")) {
+      chrome.storage.local.remove("store", function () {});
     }
-    if (url.includes('vauto.com') || url.includes('maxautolytics.com')) {
+    if (url.includes("vauto.app") || url.includes("maxautolytics.app")) {
       chrome.scripting.executeScript({
         target: { tabId: activeInfo.tabId },
-        files: ['undo_content_script.js', 'webhook_interact.js']
-      })
+        files: ["undo_content_script.js", "webhook_interact.js"],
+      });
     }
-  })
-})
+  });
+});

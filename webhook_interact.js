@@ -1,6 +1,7 @@
 insertElements();
 
 function insertElements() {
+  console.log("inserting elements");
   if (document.querySelector(".max_auto_provisioner_container"))
     document.querySelector(".max_auto_provisioner_container").remove();
   if (document.querySelector("#max_auto_provisioner_style_head"))

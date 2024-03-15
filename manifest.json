@@ -1,29 +1,37 @@
 {
-    "manifest_version": 3,
-    "name": "Max Autolytics Provisioner",
-    "version": "2.0",
-    "icons": {
-      "16": "logo.png",
-      "48": "logo.png",
-      "128": "logo.png"
-    },
-    "description": "A provisioner tool for Max Autolytics with vAuto Provision",
-    "background": {
-      "service_worker": "background.js"
-    },
-    "permissions": ["activeTab", "scripting", "storage", "onStartup", "onActivated", "tabs"],
-    "action": {
-      "default_popup": "popup.html",
-      "default_title": "Max Autolytics Provisioner",
-      "default_icon": "logo.png"
-    },
-    "host_permissions": [
-      "https://www2.vauto.com/Va/Inventory/*"
-    ],
-    "content_scripts": [
-      {
-        "matches": ["https://www2.vauto.com/Va/Inventory/"],
-        "js": ["webhook_interact.js"]
-      }
-    ]
-  }
+  "manifest_version": 3,
+  "name": "Max Autolytics Provisioner",
+  "version": "2.0",
+  "icons": {
+    "16": "logo.png",
+    "48": "logo.png",
+    "128": "logo.png"
+  },
+  "description": "A provisioner tool for Max Autolytics with vAuto Provision",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "onStartup",
+    "onActivated",
+    "tabs"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Max Autolytics Provisioner",
+    "default_icon": "logo.png"
+  },
+  "host_permissions": [
+    "https://www2.vauto.com/Va/Inventory/*",
+    "https://provision.vauto.app.coxautoinc.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://www2.vauto.com/Va/Inventory/"],
+      "js": ["webhook_interact.js"]
+    }
+  ]
+}
