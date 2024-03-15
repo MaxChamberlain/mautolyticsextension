@@ -148,7 +148,7 @@ if (
                           body:
                             "sorts=%5B%7B%22sort%22%3A%22DaysInInventory%22%2C%22dir%22%3A%22ASC%22%7D%5D&_pageSize=100&_sortBy=DaysInInventory%20ASC&_firstRecord=0&InventoryStatus=0&Historical=0&RetailWholesale=R&NewUsed=U&ExcludeFromCounts=0&customSettings=%5B%7B%22id%22%3A%22NADA_Retail%22%2C%22value%22%3A%220%22%2C%22condition%22%3A%22Clean%22%2C%22conditionLabel%22%3A%22Clean%22%2C%22type%22%3A%22priceguide%22%7D%2C%7B%22id%22%3A%22NADA_TradeIn%22%2C%22value%22%3A%220%22%2C%22condition%22%3A%22Clean%22%2C%22conditionLabel%22%3A%22Clean%22%2C%22type%22%3A%22priceguide%22%7D%2C%7B%22id%22%3A%22KBBOnline_UCFPP%22%2C%22value%22%3A%220%22%2C%22condition%22%3A%22Excellent%22%2C%22conditionLabel%22%3A%22Excellent%22%2C%22type%22%3A%22priceguide%22%7D%2C%7B%22id%22%3A%22KelleyBlueBook_Wholesale%22%2C%22value%22%3A%220%22%2C%22condition%22%3A%22Excellent%22%2C%22conditionLabel%22%3A%22Excellent%22%2C%22type%22%3A%22priceguide%22%7D%2C%7B%22id%22%3A%22KelleyBlueBook_Retail%22%2C%22value%22%3A%220%22%2C%22condition%22%3A%22Excellent%22%2C%22conditionLabel%22%3A%22Excellent%22%2C%22type%22%3A%22priceguide%22%7D%5D&HqTranferEntityNotSame=false&SalePending=&RankingBucket=&CustomDiscount=&ChildEntity=&QuickSearch=" +
                             value +
-                            "&IsExactWordMatch=false&gridSrcName=inventoryDetail&switchReport=",
+                            "&IsExactWordMatch=false&gridSrcName=inventoryDetail&switchReport=&HistoricalDaySpan=90",
                           method: "POST",
                           mode: "cors",
                           credentials: "include",
@@ -156,7 +156,6 @@ if (
                       )
                         .then((e) => e.text())
                         .then((e) => {
-                          console.log(e);
                           let obj = e.replace(/\\n/g, " ");
                           obj = obj.replace(/new Date\((\d+)\)/g, "$1");
                           obj = obj.replace(/\\\\\",\\\"/g, '","');
